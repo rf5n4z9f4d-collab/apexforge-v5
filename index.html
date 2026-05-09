@@ -1,1 +1,437 @@
-Initial commit - ApexForge v5.3
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApexForge • v5.3</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif; }
+        .glass { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(24px); }
+        .neon-cyan { box-shadow: 0 0 15px #00f5ff, 0 0 30px rgba(0,245,255,0.3); }
+        .nav-active { background: white; color: black; }
+        .premium-card { transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); }
+        .premium-card:hover { transform: translateY(-3px); }
+        .section { animation: fadeIn 0.4s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .holo-text {
+            background: linear-gradient(90deg, #00f5ff, #ff00aa, #00f5ff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-size: 200% 100%; animation: holo 3s linear infinite;
+        }
+    </style>
+</head>
+<body class="bg-[#0a0a0a] text-white">
+    
+    <!-- Top Navigation -->
+    <nav class="sticky top-0 z-50 glass border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-5 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#00f5ff] to-[#ff00aa] flex items-center justify-center">
+                    <i class="fa-solid fa-rocket text-black text-2xl"></i>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold tracking-tighter">APEXFORGE</div>
+                    <div class="text-[10px] text-white/50 -mt-1.5">v5.3 • 2032</div>
+                </div>
+            </div>
+            
+            <button onclick="showSettings()" class="w-11 h-11 flex items-center justify-center rounded-2xl glass hover:bg-white/10">
+                <i class="fa-solid fa-cog text-xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-5 pt-8 pb-28">
+        
+        <!-- Hero -->
+        <div class="flex justify-between items-end mb-10">
+            <div>
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 text-sm mb-4">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                    <span>GOOD MORNING, ANGEL</span>
+                </div>
+                <h1 class="text-7xl font-bold tracking-tighter">DAY 47 <span class="text-white/40">OF 84</span></h1>
+                <div class="flex items-center gap-4 mt-3">
+                    <div class="flex items-center gap-2 text-xl">
+                        <i class="fa-solid fa-fire text-orange-400"></i> 
+                        <span class="font-semibold">12</span> 
+                        <span class="text-white/50">DAY STREAK</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Progress Ring -->
+            <div class="relative w-36 h-36">
+                <svg class="w-36 h-36 -rotate-90" viewBox="0 0 120 120">
+                    <circle cx="60" cy="60" r="52" fill="none" stroke="#ffffff10" stroke-width="9"/>
+                    <circle cx="60" cy="60" r="52" fill="none" stroke="#00f5ff" stroke-width="9" 
+                            stroke-dasharray="326" stroke-dashoffset="82" stroke-linecap="round"/>
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <div class="text-5xl font-bold">87</div>
+                    <div class="text-xs text-white/50 -mt-1">COMPLETE</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="fixed bottom-0 left-0 right-0 z-50 glass border-t border-white/10 px-2 py-2">
+            <div class="max-w-7xl mx-auto flex justify-around">
+                <button onclick="switchTab('dashboard')" class="nav-btn flex flex-col items-center gap-1 px-4 py-2 text-xs" id="nav-dashboard">
+                    <i class="fa-solid fa-home text-xl"></i>
+                    <span>Dashboard</span>
+                </button>
+                <button onclick="switchTab('calendar')" class="nav-btn flex flex-col items-center gap-1 px-4 py-2 text-xs text-white/60" id="nav-calendar">
+                    <i class="fa-solid fa-calendar text-xl"></i>
+                    <span>Calendar</span>
+                </button>
+                <button onclick="switchTab('exercise')" class="nav-btn flex flex-col items-center gap-1 px-4 py-2 text-xs text-white/60" id="nav-exercise">
+                    <i class="fa-solid fa-dumbbell text-xl"></i>
+                    <span>Exercise</span>
+                </button>
+                <button onclick="showAIChat()" class="nav-btn flex flex-col items-center gap-1 px-4 py-2 text-xs text-white/60" id="nav-ai">
+                    <i class="fa-solid fa-robot text-xl"></i>
+                    <span>AI</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- DASHBOARD -->
+        <div id="content-dashboard" class="tab-content">
+            <div class="glass rounded-3xl p-7 mb-6">
+                <div class="flex justify-between mb-5">
+                    <div>
+                        <div class="text-sm text-white/50">TODAY'S PROTOCOL</div>
+                        <div class="text-2xl font-semibold">Day 47 Schedule</div>
+                    </div>
+                    <div class="px-4 py-1 rounded-2xl bg-emerald-500/10 text-emerald-400 text-xs font-semibold self-start">87% DONE</div>
+                </div>
+                
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-2xl">
+                        <div>06:30 — MK-677 15–20mg</div>
+                        <div class="text-emerald-400 text-sm">DONE</div>
+                    </div>
+                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-2xl">
+                        <div>06:45 — Morning Shake + Core</div>
+                        <div class="text-emerald-400 text-sm">DONE</div>
+                    </div>
+                    <div class="flex justify-between items-center p-4 bg-[#00f5ff]/10 border border-[#00f5ff]/40 rounded-2xl">
+                        <div>08:00 — Test E + NPP</div>
+                        <div class="text-[#00f5ff] text-sm font-semibold">NOW</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="glass rounded-3xl p-6">
+                    <div class="text-sm text-white/50">ENERGY</div>
+                    <div class="text-6xl font-semibold mt-1">87</div>
+                    <div class="text-emerald-400 text-sm">+12 from yesterday</div>
+                </div>
+                <div class="glass rounded-3xl p-6">
+                    <div class="text-sm text-white/50">RECOVERY</div>
+                    <div class="text-6xl font-semibold mt-1">92</div>
+                    <div class="text-emerald-400 text-sm">Excellent</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CALENDAR -->
+        <div id="content-calendar" class="tab-content hidden">
+            <div class="glass rounded-3xl p-7">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="text-3xl font-semibold">February 2026</div>
+                    <div class="flex gap-2">
+                        <button onclick="prevMonth()" class="w-10 h-10 glass rounded-2xl flex items-center justify-center"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button onclick="nextMonth()" class="w-10 h-10 glass rounded-2xl flex items-center justify-center"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-7 gap-1 text-center text-xs mb-2 text-white/40">
+                    <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
+                </div>
+                <div id="calendar-grid" class="grid grid-cols-7 gap-1 text-sm"></div>
+            </div>
+        </div>
+
+        <!-- EXERCISE -->
+        <div id="content-exercise" class="tab-content hidden">
+            <div class="mb-5">
+                <div class="text-sm text-white/50">CURRENT PHASE: OVULATORY</div>
+                <div class="text-3xl font-semibold">Recommended Workouts</div>
+            </div>
+            
+            <div class="space-y-4">
+                <div onclick="startWorkout('High-Intensity Strength')" class="premium-card glass p-6 rounded-3xl flex justify-between items-center cursor-pointer">
+                    <div>
+                        <div class="font-semibold text-xl">High-Intensity Strength</div>
+                        <div class="text-white/50">45 min • Intermediate</div>
+                    </div>
+                    <div class="text-4xl">🏋️</div>
+                </div>
+                
+                <div onclick="startWorkout('Mobility Flow')" class="premium-card glass p-6 rounded-3xl flex justify-between items-center cursor-pointer">
+                    <div>
+                        <div class="font-semibold text-xl">Mobility Flow</div>
+                        <div class="text-white/50">25 min • All Levels</div>
+                    </div>
+                    <div class="text-4xl">🧘</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Buttons -->
+    <button onclick="showStartModal()" 
+            class="fixed bottom-24 right-6 z-50 w-14 h-14 rounded-3xl bg-white text-black flex items-center justify-center shadow-2xl neon-cyan text-3xl">
+        <i class="fa-solid fa-plus"></i>
+    </button>
+
+    <button onclick="showAIChat()" 
+            class="fixed bottom-24 right-24 z-50 w-14 h-14 rounded-3xl bg-gradient-to-br from-[#00f5ff] to-[#ff00aa] flex items-center justify-center shadow-2xl text-black font-bold text-xl neon-magenta">
+        AI
+    </button>
+
+    <!-- Start Modal -->
+    <div id="start-modal" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-6" onclick="hideStartModal()">
+        <div onclick="event.stopImmediatePropagation()" class="glass-strong rounded-3xl w-full max-w-md p-8">
+            <div id="start-step-1">
+                <div class="text-center mb-8">
+                    <div class="text-6xl mb-4">🚀</div>
+                    <div class="text-4xl font-semibold">What do you want to start?</div>
+                </div>
+                
+                <div class="space-y-3">
+                    <div onclick="selectStartType('New Cycle')" class="p-5 rounded-2xl border border-white/10 flex items-center gap-4 cursor-pointer hover:border-white/30">
+                        <div class="text-3xl">🔄</div>
+                        <div><div class="font-semibold">New Cycle</div><div class="text-sm text-white/50">Begin tracking your next phase</div></div>
+                    </div>
+                    <div onclick="selectStartType('New Goal')" class="p-5 rounded-2xl border border-white/10 flex items-center gap-4 cursor-pointer hover:border-white/30">
+                        <div class="text-3xl">🎯</div>
+                        <div><div class="font-semibold">New Goal</div><div class="text-sm text-white/50">Set a 4–12 week objective</div></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="start-step-2" class="hidden">
+                <div class="text-center mb-8">
+                    <div class="text-6xl mb-4">🔥</div>
+                    <div class="text-3xl font-semibold">Starting <span id="start-type-name" class="text-[#00f5ff]"></span></div>
+                </div>
+                
+                <div class="mb-8">
+                    <div class="flex justify-between text-sm mb-2">
+                        <div>Duration</div>
+                        <div id="duration-text" class="font-semibold">28 days</div>
+                    </div>
+                    <input type="range" id="duration" min="7" max="84" value="28" class="w-full accent-[#00f5ff]" oninput="updateDuration()">
+                </div>
+                
+                <button onclick="confirmStart()" class="w-full py-4 rounded-3xl bg-white text-black font-semibold text-lg">BEGIN →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Chat Modal -->
+    <div id="ai-modal" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-end justify-center p-6" onclick="hideAIChat()">
+        <div onclick="event.stopImmediatePropagation()" class="glass-strong rounded-3xl w-full max-w-md h-[70vh] flex flex-col">
+            <div class="p-5 flex justify-between items-center border-b border-white/10">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-[#00f5ff] to-[#ff00aa]"></div>
+                    <div>
+                        <div class="font-semibold">Apex AI</div>
+                        <div class="text-xs text-emerald-400">Online • Always learning</div>
+                    </div>
+                </div>
+                <button onclick="hideAIChat()"><i class="fa-solid fa-times text-xl"></i></button>
+            </div>
+            
+            <div id="ai-chat" class="flex-1 p-5 overflow-y-auto space-y-4 text-sm"></div>
+            
+            <div class="p-4 border-t border-white/10">
+                <div class="flex gap-3">
+                    <input id="ai-input" type="text" placeholder="Ask about cycle, training, mood..." 
+                           class="flex-1 bg-white/10 rounded-3xl px-5 py-3 text-sm focus:outline-none" onkeypress="if(event.key==='Enter') sendAI()">
+                    <button onclick="sendAI()" class="w-12 h-12 rounded-3xl bg-white text-black flex items-center justify-center">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function initialize() {
+            // Show dashboard by default
+            document.getElementById('content-dashboard').classList.remove('hidden');
+            document.getElementById('nav-dashboard').classList.add('nav-active');
+            
+            // Render calendar
+            renderCalendar();
+            
+            console.log('%c[ApexForge v5.3] Fully loaded', 'color:#00f5ff');
+        }
+        
+        let currentMonth = new Date();
+        
+        function renderCalendar() {
+            const grid = document.getElementById('calendar-grid');
+            grid.innerHTML = '';
+            
+            const year = currentMonth.getFullYear();
+            const month = currentMonth.getMonth();
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            for (let i = 0; i < firstDay; i++) {
+                grid.innerHTML += `<div class="h-11"></div>`;
+            }
+            
+            for (let day = 1; day <= daysInMonth; day++) {
+                const isToday = day === 47;
+                const phase = day <= 5 ? 'Menstrual' : day <= 13 ? 'Follicular' : day <= 16 ? 'Ovulatory' : 'Luteal';
+                const color = day <= 5 ? 'rose' : day <= 13 ? 'emerald' : day <= 16 ? 'amber' : 'violet';
+                
+                grid.innerHTML += `
+                    <div onclick="selectDay(${day})" class="h-11 flex items-center justify-center rounded-xl text-sm font-medium cursor-pointer ${isToday ? 'bg-[#00f5ff] text-black' : 'hover:bg-white/10'}">
+                        <div>
+                            <div>${day}</div>
+                            <div class="text-[8px] text-${color}-400">${phase.slice(0,3)}</div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        function selectDay(day) {
+            alert(`Day ${day} — ${getPhase(day)} Phase\n\nHigh energy day. Great for heavy lifts and social activities.`);
+        }
+        
+        function getPhase(day) {
+            if (day <= 5) return "Menstrual";
+            if (day <= 13) return "Follicular";
+            if (day <= 16) return "Ovulatory";
+            return "Luteal";
+        }
+        
+        function prevMonth() {
+            currentMonth.setMonth(currentMonth.getMonth() - 1);
+            renderCalendar();
+        }
+        
+        function nextMonth() {
+            currentMonth.setMonth(currentMonth.getMonth() + 1);
+            renderCalendar();
+        }
+        
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`content-${tab}`).classList.remove('hidden');
+            
+            document.querySelectorAll('[id^="nav-"]').forEach(el => el.classList.remove('nav-active'));
+            document.getElementById(`nav-${tab}`).classList.add('nav-active');
+        }
+        
+        let startType = '';
+        
+        function showStartModal() {
+            document.getElementById('start-modal').classList.remove('hidden');
+            document.getElementById('start-step-1').classList.remove('hidden');
+            document.getElementById('start-step-2').classList.add('hidden');
+        }
+        
+        function hideStartModal() {
+            document.getElementById('start-modal').classList.add('hidden');
+        }
+        
+        function selectStartType(type) {
+            startType = type;
+            document.getElementById('start-step-1').classList.add('hidden');
+            document.getElementById('start-step-2').classList.remove('hidden');
+            document.getElementById('start-type-name').innerHTML = type;
+        }
+        
+        function updateDuration() {
+            const val = document.getElementById('duration').value;
+            document.getElementById('duration-text').innerHTML = val + ' days';
+        }
+        
+        function confirmStart() {
+            const duration = document.getElementById('duration').value;
+            hideStartModal();
+            alert(`🚀 ${startType} started for ${duration} days!\n\nLive tracking activated.`);
+        }
+        
+        let aiChatHistory = [];
+        
+        function showAIChat() {
+            document.getElementById('ai-modal').classList.remove('hidden');
+            const chat = document.getElementById('ai-chat');
+            chat.innerHTML = '';
+            
+            if (aiChatHistory.length === 0) {
+                addAIMessage("assistant", "Hey Angel! How are you feeling today? I'm here to help with your cycle, training, or recovery.");
+            } else {
+                aiChatHistory.forEach(msg => addAIMessage(msg.role, msg.content, true));
+            }
+        }
+        
+        function hideAIChat() {
+            document.getElementById('ai-modal').classList.add('hidden');
+        }
+        
+        function addAIMessage(role, content, skipSave = false) {
+            const chat = document.getElementById('ai-chat');
+            const div = document.createElement('div');
+            div.className = `flex ${role === 'user' ? 'justify-end' : ''}`;
+            div.innerHTML = `
+                <div class="max-w-[80%] px-4 py-3 rounded-3xl text-sm ${role === 'user' ? 'bg-[#00f5ff] text-black' : 'bg-white/10'}">
+                    ${content}
+                </div>
+            `;
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+            
+            if (!skipSave) aiChatHistory.push({ role, content });
+        }
+        
+        function sendAI() {
+            const input = document.getElementById('ai-input');
+            const value = input.value.trim();
+            if (!value) return;
+            
+            addAIMessage('user', value);
+            input.value = '';
+            
+            setTimeout(() => {
+                let reply = "Got it. How does that feel today?";
+                const lower = value.toLowerCase();
+                
+                if (lower.includes('tired') || lower.includes('energy')) reply = "You're in luteal phase — energy naturally drops. Reduce training intensity by 20% and sleep more.";
+                else if (lower.includes('training') || lower.includes('workout')) reply = "Great timing! Ovulatory phase is perfect for heavy lifts. Focus on compounds today.";
+                else if (lower.includes('mood') || lower.includes('anxious')) reply = "Hormonal shifts can amplify emotions. Try a 10-min walk + magnesium.";
+                else if (lower.includes('hungry') || lower.includes('craving')) reply = "Cravings are normal. Protein + healthy fats work very well right now.";
+                
+                addAIMessage('assistant', reply);
+            }, 900);
+        }
+        
+        function showSettings() {
+            alert("Settings opened!\n\n• Theme customization\n• AI preferences\n• Data export\n\n(Full settings coming in v5.4)");
+        }
+        
+        function initialize() {
+            // Show dashboard
+            document.getElementById('content-dashboard').classList.remove('hidden');
+            document.getElementById('nav-dashboard').classList.add('nav-active');
+            
+            console.log('%c[ApexForge v5.3] Fully working version loaded', 'color:#00f5ff');
+        }
+        
+        window.onload = initialize;
+    </script>
+</body>
+</html>
