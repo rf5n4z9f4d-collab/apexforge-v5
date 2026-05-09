@@ -3,303 +3,330 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>APEXFORGE X — OS v6</title>
+<title>Apex OS PRO</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-:root{
-  --bg:#0A0A0A;
-  --panel:rgba(255,255,255,0.06);
-  --border:rgba(255,255,255,0.1);
-  --text:#fff;
-  --muted:rgba(255,255,255,0.6);
-  --accent:#00F9FF;
-  --purple:#7C3AED;
-}
-
-*{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto;}
-
 body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
+  background:#071822;
+  color:white;
+  font-family: Inter, sans-serif;
 }
 
-/* NAV */
-nav{
-  position:fixed;
-  bottom:0;
-  width:100%;
-  display:flex;
-  justify-content:space-around;
-  background:rgba(0,0,0,0.8);
-  backdrop-filter:blur(10px);
-  border-top:1px solid var(--border);
-  padding:10px 0;
+.card{
+  background:rgba(255,255,255,0.06);
+  border-radius:18px;
+  padding:14px;
+  margin-bottom:10px;
+  backdrop-filter: blur(10px);
 }
+
+.btn:active{ transform:scale(.97); }
 
 nav button{
-  background:none;
-  border:none;
-  color:var(--muted);
   font-size:12px;
 }
 
-/* PAGES */
-.page{display:none;padding:20px;padding-bottom:80px;}
-.active{display:block;}
-
-/* CARDS */
-.card{
-  background:var(--panel);
-  border:1px solid var(--border);
-  padding:15px;
-  border-radius:14px;
-  margin-bottom:12px;
+input,select{
+  outline:none;
 }
-
-/* HEADER */
-h1{font-size:20px;margin:10px 0;}
-h2{font-size:16px;margin:10px 0;color:var(--muted);}
-
-/* BUTTON */
-.btn{
-  background:linear-gradient(135deg,var(--accent),var(--purple));
-  border:none;
-  padding:10px 14px;
-  border-radius:10px;
-  color:black;
-  font-weight:bold;
-  width:100%;
-}
-
-/* TOGGLE */
-.toggle{
-  display:flex;
-  justify-content:space-between;
-  margin:10px 0;
-  align-items:center;
-}
-
-input[type="checkbox"]{
-  transform:scale(1.2);
-}
-
-/* BANNER */
-.banner{
-  font-size:13px;
-  color:var(--muted);
-  text-align:center;
-  margin-bottom:10px;
-}
-
-/* SMALL */
-.small{font-size:12px;color:var(--muted);}
 </style>
 </head>
 
 <body>
 
-<!-- HOME -->
-<div id="home" class="page active">
-  <div class="banner" id="motivation"></div>
-
-  <div class="card">
-    <h1>APEXFORGE X</h1>
-    <div class="small">Autonomous Fitness OS v6</div>
-  </div>
-
-  <div class="card">
-    <h2>Today State</h2>
-    <div id="state"></div>
-  </div>
-
-  <button class="btn" onclick="startSession()">START TRAINING SESSION</button>
-</div>
-
-<!-- TRAINING -->
-<div id="training" class="page">
-  <h1>Training</h1>
-
-  <div class="card">
-    <h2>Log Workout</h2>
-    <input id="exercise" placeholder="Exercise name" style="width:100%;padding:10px;margin-bottom:8px;">
-    <input id="weight" placeholder="Weight" style="width:100%;padding:10px;margin-bottom:8px;">
-    <button class="btn" onclick="logWorkout()">Add Set</button>
-  </div>
-
-  <div class="card">
-    <h2>Sessions</h2>
-    <div id="workouts"></div>
-  </div>
-</div>
-
-<!-- SUPPLEMENTS -->
-<div id="supplements" class="page">
-  <h1>Supplements</h1>
-
-  <div class="card">
-    <div class="toggle">
-      <span>Magnesium</span><input type="checkbox" onchange="logSupp(this)">
-    </div>
-    <div class="toggle">
-      <span>Creatine</span><input type="checkbox" onchange="logSupp(this)">
-    </div>
-    <div class="toggle">
-      <span>Electrolytes</span><input type="checkbox" onchange="logSupp(this)">
-    </div>
-  </div>
-</div>
-
-<!-- CYCLE -->
-<div id="cycle" class="page">
-  <h1>Cycle State</h1>
-
-  <div class="card">
-    <h2>Readiness</h2>
-    <div id="readiness">--</div>
-  </div>
-
-  <div class="card">
-    <h2>Fatigue</h2>
-    <div id="fatigue">--</div>
-  </div>
-</div>
-
-<!-- AI -->
-<div id="ai" class="page">
-  <h1>AI Coach</h1>
-
-  <div class="card">
-    <h2>Insight</h2>
-    <div id="aiText">Waiting for data...</div>
-  </div>
-</div>
-
-<!-- SETTINGS -->
-<div id="settings" class="page">
-  <h1>Settings</h1>
-
-  <div class="card">
-    <div class="toggle">
-      <span>Motivation Banner</span>
-      <input type="checkbox" checked onchange="toggleMotivation(this)">
-    </div>
-
-    <div class="toggle">
-      <span>Compact Mode</span>
-      <input type="checkbox">
-    </div>
-  </div>
-</div>
-
-<!-- NAV -->
-<nav>
-  <button onclick="show('home')">Home</button>
-  <button onclick="show('training')">Train</button>
-  <button onclick="show('supplements')">Supp</button>
-  <button onclick="show('cycle')">Cycle</button>
-  <button onclick="show('ai')">AI</button>
-  <button onclick="show('settings')">Settings</button>
-</nav>
+<div id="app"></div>
 
 <script>
-let state = {
-  fatigue: 40,
-  recovery: 70,
-  readiness: 65,
-  motivation: true,
-  workouts: [],
-  supps: []
+
+/* =========================
+   1. REACTIVE STORE (PRO LEVEL)
+========================= */
+
+const Store = {
+  state: {
+    cycleStart: new Date().toISOString().slice(0,10),
+    schedule: [
+      {id:1,time:"6:30 AM",name:"Morning Cardio",done:false},
+      {id:2,time:"8:00 AM",name:"Protein Meal",done:false},
+      {id:3,time:"6:00 PM",name:"Gym Session",done:false}
+    ],
+    macros: { weight:180, goal:"Maintain" }
+  },
+
+  listeners: [],
+
+  get(){ return this.state; },
+
+  set(fn){
+    this.state = fn(this.state);
+    save();
+    this.listeners.forEach(l=>l());
+  },
+
+  subscribe(fn){
+    this.listeners.push(fn);
+  }
 };
 
-/* NAV */
-function show(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+const KEY = "apex_os_pro_v1";
+
+function save(){
+  localStorage.setItem(KEY, JSON.stringify(Store.state));
 }
 
-/* MOTIVATION */
-const quotes = [
-  "Discipline beats motivation.",
-  "Small wins build champions.",
-  "Train when you don’t feel like it.",
-  "Consistency is the real edge."
-];
+function load(){
+  const d = localStorage.getItem(KEY);
+  if(d) Store.state = JSON.parse(d);
+}
+load();
 
-function updateMotivation(){
-  if(!state.motivation) {
-    document.getElementById("motivation").innerText="";
-    return;
+
+/* =========================
+   2. COMPONENT SYSTEM v2
+========================= */
+
+function h(html){
+  const d = document.createElement("div");
+  d.innerHTML = html.trim();
+  return d.firstChild;
+}
+
+function Card(content){
+  return h(`<div class="card">${content}</div>`);
+}
+
+function Button(text, onClick){
+  const b = h(`<button class="bg-emerald-500 text-black px-4 py-2 rounded-xl">${text}</button>`);
+  b.onclick = onClick;
+  return b;
+}
+
+
+/* =========================
+   3. ROUTER SYSTEM (REAL UPGRADE)
+========================= */
+
+const Router = {
+  routes: {},
+
+  add(path, view){
+    this.routes[path] = view;
+  },
+
+  get(){
+    const hash = location.hash.replace("#","");
+    return this.routes[hash || "home"] || this.routes.home;
+  },
+
+  go(path){
+    location.hash = path;
   }
-  document.getElementById("motivation").innerText =
-    quotes[Math.floor(Math.random()*quotes.length)];
+};
+
+
+/* =========================
+   4. BUSINESS LOGIC HELPERS
+========================= */
+
+function progress(){
+  const s = Store.get();
+  const done = s.schedule.filter(x=>x.done).length;
+  return Math.round((done/s.schedule.length)*100);
 }
 
-/* WORKOUT */
-function logWorkout(){
-  const ex = document.getElementById("exercise").value;
-  const w = document.getElementById("weight").value;
+function cycleInfo(){
+  const s = Store.get();
+  const start = new Date(s.cycleStart);
+  const now = new Date();
 
-  state.workouts.push({ex,w});
-
-  renderWorkouts();
-  runAI();
+  const days = Math.floor((now-start)/86400000)+1;
+  return `Week ${Math.ceil(days/7)} • Day ${days}`;
 }
 
-function renderWorkouts(){
-  document.getElementById("workouts").innerHTML =
-    state.workouts.map(w=>`<div class="card">${w.ex} - ${w.w}</div>`).join("");
+
+/* =========================
+   5. VIEWS (CLEAN COMPONENTS)
+========================= */
+
+function Home(){
+  const s = Store.get();
+  const wrap = document.createElement("div");
+
+  wrap.appendChild(Card(`
+    <div class="text-4xl text-emerald-400 font-bold">${progress()}%</div>
+    <div class="text-xs opacity-60">Daily Progress</div>
+    <div class="text-xs mt-1 opacity-40">${cycleInfo()}</div>
+  `));
+
+  s.schedule.forEach((t,i)=>{
+    const el = h(`
+      <div class="card flex justify-between items-center">
+        <div>
+          <div class="text-sm">${t.time}</div>
+          <div class="text-xs opacity-70">${t.name}</div>
+        </div>
+        <input type="checkbox" ${t.done?"checked":""}/>
+      </div>
+    `);
+
+    el.querySelector("input").onchange = ()=>{
+      Store.set(s=>{
+        s.schedule[i].done = !s.schedule[i].done;
+        return s;
+      });
+    };
+
+    wrap.appendChild(el);
+  });
+
+  return wrap;
 }
 
-/* SUPPS */
-function logSupp(el){
-  state.supps.push(el.parentNode.innerText.trim());
-  runAI();
+
+/* =========================
+   MACROS VIEW
+========================= */
+
+function Macros(){
+  const s = Store.get();
+
+  const wrap = document.createElement("div");
+
+  wrap.appendChild(Card(`
+    <div class="font-semibold mb-2">Macro Engine</div>
+
+    <input id="w" class="w-full p-2 rounded bg-white/10 mb-2" value="${s.macros.weight}" placeholder="Weight"/>
+
+    <select id="g" class="w-full p-2 rounded bg-white/10 mb-2">
+      <option ${s.macros.goal==="Cut"?"selected":""}>Cut</option>
+      <option ${s.macros.goal==="Maintain"?"selected":""}>Maintain</option>
+      <option ${s.macros.goal==="Bulk"?"selected":""}>Bulk</option>
+    </select>
+
+    <button id="calc" class="w-full bg-emerald-500 text-black py-2 rounded-xl">
+      Calculate
+    </button>
+
+    <div id="out" class="mt-2 text-sm"></div>
+  `));
+
+  setTimeout(()=>{
+    document.getElementById("calc").onclick = ()=>{
+      const w = +document.getElementById("w").value || 180;
+      const g = document.getElementById("g").value;
+
+      Store.set(s=>{
+        s.macros.weight = w;
+        s.macros.goal = g;
+        return s;
+      });
+
+      let cals = w*14;
+      if(g==="Cut") cals*=0.85;
+      if(g==="Bulk") cals*=1.15;
+
+      document.getElementById("out").innerHTML =
+        `Calories: ${Math.round(cals)}<br>Protein: ${Math.round(w*1.8)}g`;
+    };
+  });
+
+  return wrap;
 }
 
-/* AI ENGINE */
-function runAI(){
-  let fatigue = state.workouts.length * 5;
-  let recovery = 100 - fatigue;
 
-  state.fatigue = fatigue;
-  state.recovery = recovery;
-  state.readiness = recovery - fatigue/2;
+/* =========================
+   SETTINGS VIEW
+========================= */
 
-  document.getElementById("fatigue").innerText = state.fatigue;
-  document.getElementById("readiness").innerText = state.readiness;
+function Settings(){
+  const s = Store.get();
 
-  let msg = "";
+  const wrap = document.createElement("div");
 
-  if(state.fatigue > 60){
-    msg = "High fatigue detected — reduce training intensity.";
-  } else if(state.readiness > 70){
-    msg = "High readiness — good window for progression.";
-  } else {
-    msg = "Stable state — maintain current workload.";
-  }
+  const input = h(`<input type="date" class="w-full p-2 rounded bg-white/10 mb-2">`);
+  input.value = s.cycleStart;
 
-  document.getElementById("aiText").innerText = msg;
+  const saveBtn = Button("Save Cycle", ()=>{
+    Store.set(s=>{
+      s.cycleStart = input.value;
+      return s;
+    });
+  });
 
-  document.getElementById("state").innerText =
-    `Readiness: ${state.readiness} | Fatigue: ${state.fatigue}`;
+  const resetBtn = Button("Reset App", ()=>{
+    if(confirm("Reset all data?")){
+      localStorage.clear();
+      location.reload();
+    }
+  });
+
+  wrap.appendChild(Card("<div class='font-semibold mb-2'>Settings</div>"));
+  wrap.appendChild(input);
+  wrap.appendChild(saveBtn);
+  wrap.appendChild(resetBtn);
+
+  return wrap;
 }
 
-/* SESSION */
-function startSession(){
-  alert("Training session started — focus mode engaged.");
+
+/* =========================
+   6. APP RENDER ENGINE
+========================= */
+
+function App(){
+  const root = document.createElement("div");
+  root.className = "max-w-md mx-auto p-4";
+
+  const view = Router.get();
+  root.appendChild(view());
+
+  const nav = document.createElement("nav");
+  nav.className = "fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-black/40 backdrop-blur flex justify-around p-3";
+
+  [
+    ["Home","home"],
+    ["Macros","macros"],
+    ["Settings","settings"]
+  ].forEach(([label,path])=>{
+    const b = document.createElement("button");
+    b.innerText = label;
+    b.onclick = ()=>Router.go(path);
+    nav.appendChild(b);
+  });
+
+  root.appendChild(nav);
+
+  return root;
 }
 
-/* SETTINGS */
-function toggleMotivation(el){
-  state.motivation = el.checked;
-  updateMotivation();
+
+/* =========================
+   7. RENDER SYSTEM (REACTIVE)
+========================= */
+
+function render(){
+  const app = document.getElementById("app");
+  app.innerHTML = "";
+  app.appendChild(App());
 }
 
-/* INIT */
-updateMotivation();
-runAI();
+
+/* =========================
+   8. BOOTSTRAP
+========================= */
+
+Router.add("home", Home);
+Router.add("macros", Macros);
+Router.add("settings", Settings);
+
+Store.subscribe(render);
+
+render();
+
+window.onhashchange = render;
+
 </script>
-
 </body>
 </html>
