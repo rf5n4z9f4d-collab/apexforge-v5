@@ -1,655 +1,1356 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ApexForge • v5.7 Complete</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif; }
-        .glass { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(24px); }
-        .neon-cyan { box-shadow: 0 0 15px #00f5ff, 0 0 30px rgba(0,245,255,0.4); }
-        .nav-active { background: white; color: black; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
-        .premium-card { transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); }
-        .premium-card:hover { transform: translateY(-4px); }
-        .section { animation: fadeInUp 0.4s ease forwards; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .stat-value { font-variant-numeric: tabular-nums; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+  <title>APEXFORGE X</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root{
+      --bg:#0A0A0A;
+      --bg2:#111111;
+      --panel:rgba(255,255,255,0.05);
+      --panel2:rgba(255,255,255,0.07);
+      --border:rgba(255,255,255,0.09);
+      --text:#F5F7FA;
+      --muted:#8B93A7;
+      --cyan:#00F9FF;
+      --purple:#7C3AED;
+      --orange:#FF5F2E;
+      --green:#00FF99;
+      --danger:#ff4d6d;
+      --shadow:0 10px 40px rgba(0,0,0,.55);
+      --radius:28px;
+      --blur:24px;
+      --nav:82px;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:
+      radial-gradient(circle at top left, rgba(124,58,237,.15), transparent 35%),
+      radial-gradient(circle at top right, rgba(0,249,255,.12), transparent 30%),
+      radial-gradient(circle at bottom, rgba(255,95,46,.08), transparent 30%),
+      var(--bg);
+
+      color:var(--text);
+      font-family:"Inter",sans-serif;
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:
+      linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+      background-size:40px 40px;
+      pointer-events:none;
+      opacity:.2;
+      z-index:-1;
+    }
+
+    .ambient{
+      position:fixed;
+      width:500px;
+      height:500px;
+      border-radius:50%;
+      filter:blur(120px);
+      opacity:.16;
+      z-index:-1;
+      animation:float 16s ease-in-out infinite alternate;
+    }
+
+    .ambient.one{
+      background:var(--cyan);
+      top:-180px;
+      right:-100px;
+    }
+
+    .ambient.two{
+      background:var(--purple);
+      bottom:-240px;
+      left:-120px;
+      animation-duration:22s;
+    }
+
+    @keyframes float{
+      from{transform:translateY(0) translateX(0)}
+      to{transform:translateY(40px) translateX(-20px)}
+    }
+
+    .app{
+      max-width:1600px;
+      margin:auto;
+      padding:28px 20px 140px;
+    }
+
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:30px;
+      position:sticky;
+      top:0;
+      z-index:100;
+      backdrop-filter:blur(18px);
+      background:rgba(10,10,10,.65);
+      padding:16px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:16px;
+    }
+
+    .logo{
+      width:54px;
+      height:54px;
+      border-radius:18px;
+      background:
+      linear-gradient(135deg,var(--cyan),var(--purple));
+      position:relative;
+      overflow:hidden;
+      box-shadow:
+      0 0 30px rgba(0,249,255,.35),
+      inset 0 0 20px rgba(255,255,255,.18);
+    }
+
+    .logo::before{
+      content:"";
+      position:absolute;
+      inset:2px;
+      border-radius:16px;
+      background:#0A0A0A;
+    }
+
+    .logo::after{
+      content:"A";
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      font-family:"Space Grotesk",sans-serif;
+      font-size:26px;
+      font-weight:700;
+      color:white;
+      z-index:2;
+    }
+
+    .brand h1{
+      font-size:24px;
+      font-family:"Space Grotesk",sans-serif;
+      letter-spacing:.08em;
+    }
+
+    .brand p{
+      color:var(--muted);
+      font-size:13px;
+      margin-top:2px;
+    }
+
+    .actions{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    .icon-btn{
+      width:52px;
+      height:52px;
+      border-radius:18px;
+      background:var(--panel);
+      border:1px solid var(--border);
+      backdrop-filter:blur(var(--blur));
+      display:grid;
+      place-items:center;
+      color:white;
+      cursor:pointer;
+      transition:.35s ease;
+      box-shadow:var(--shadow);
+    }
+
+    .icon-btn:hover{
+      transform:translateY(-4px);
+      border-color:rgba(0,249,255,.4);
+      box-shadow:
+      0 10px 40px rgba(0,249,255,.12),
+      var(--shadow);
+    }
+
+    .hero{
+      position:relative;
+      overflow:hidden;
+      padding:34px;
+      border-radius:40px;
+      background:
+      linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.09);
+      backdrop-filter:blur(40px);
+      box-shadow:var(--shadow);
+      margin-bottom:26px;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      width:500px;
+      height:500px;
+      background:radial-gradient(circle,var(--cyan),transparent 70%);
+      opacity:.12;
+      right:-180px;
+      top:-200px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 16px;
+      border-radius:999px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      color:#d9faff;
+      font-size:13px;
+      margin-bottom:20px;
+      backdrop-filter:blur(10px);
+    }
+
+    .pulse{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:var(--cyan);
+      box-shadow:0 0 18px var(--cyan);
+      animation:pulse 2s infinite;
+    }
+
+    @keyframes pulse{
+      0%,100%{transform:scale(1); opacity:1}
+      50%{transform:scale(1.6); opacity:.5}
+    }
+
+    .hero h2{
+      font-size:clamp(42px,6vw,82px);
+      line-height:.95;
+      font-family:"Space Grotesk",sans-serif;
+      margin-bottom:20px;
+      letter-spacing:-.04em;
+    }
+
+    .gradient{
+      background:linear-gradient(90deg,var(--cyan),#9dffff,var(--purple));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .hero p{
+      color:var(--muted);
+      font-size:17px;
+      line-height:1.7;
+      max-width:720px;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:16px;
+      margin-top:30px;
+      flex-wrap:wrap;
+    }
+
+    .primary-btn,
+    .secondary-btn{
+      border:none;
+      outline:none;
+      cursor:pointer;
+      transition:.35s ease;
+      border-radius:22px;
+      padding:18px 24px;
+      font-size:15px;
+      font-weight:700;
+      letter-spacing:.02em;
+    }
+
+    .primary-btn{
+      background:linear-gradient(135deg,var(--cyan),var(--purple));
+      color:#050505;
+      box-shadow:
+      0 15px 50px rgba(0,249,255,.25);
+    }
+
+    .primary-btn:hover{
+      transform:translateY(-5px) scale(1.02);
+    }
+
+    .secondary-btn{
+      background:rgba(255,255,255,.05);
+      color:white;
+      border:1px solid rgba(255,255,255,.08);
+      backdrop-filter:blur(14px);
+    }
+
+    .secondary-btn:hover{
+      transform:translateY(-4px);
+      border-color:rgba(255,255,255,.25);
+    }
+
+    .orbital{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      position:relative;
+      min-height:420px;
+    }
+
+    .ring{
+      width:340px;
+      height:340px;
+      border-radius:50%;
+      position:relative;
+      display:grid;
+      place-items:center;
+      background:
+      conic-gradient(
+      var(--cyan) 0 68%,
+      rgba(255,255,255,.06) 68% 100%
+      );
+      animation:spin 12s linear infinite;
+      box-shadow:
+      0 0 80px rgba(0,249,255,.18),
+      inset 0 0 50px rgba(255,255,255,.08);
+    }
+
+    .ring::before{
+      content:"";
+      position:absolute;
+      inset:20px;
+      border-radius:50%;
+      background:#0A0A0A;
+      border:1px solid rgba(255,255,255,.08);
+      backdrop-filter:blur(20px);
+    }
+
+    @keyframes spin{
+      from{transform:rotate(0)}
+      to{transform:rotate(360deg)}
+    }
+
+    .ring-core{
+      position:relative;
+      z-index:3;
+      text-align:center;
+    }
+
+    .ring-core h3{
+      font-size:72px;
+      font-family:"Space Grotesk",sans-serif;
+    }
+
+    .ring-core p{
+      color:var(--muted);
+      font-size:15px;
+      margin-top:8px;
+    }
+
+    .floating-stat{
+      position:absolute;
+      padding:14px 16px;
+      border-radius:20px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08);
+      backdrop-filter:blur(16px);
+      box-shadow:var(--shadow);
+      animation:bob 4s ease-in-out infinite alternate;
+    }
+
+    .floating-stat h4{
+      font-size:14px;
+      color:var(--muted);
+      margin-bottom:8px;
+    }
+
+    .floating-stat strong{
+      font-size:24px;
+    }
+
+    @keyframes bob{
+      from{transform:translateY(0)}
+      to{transform:translateY(12px)}
+    }
+
+    .s1{top:40px; left:0}
+    .s2{right:10px; top:80px; animation-delay:1s}
+    .s3{bottom:30px; left:40px; animation-delay:2s}
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(12,1fr);
+      gap:22px;
+    }
+
+    .card{
+      background:
+      linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:32px;
+      padding:24px;
+      backdrop-filter:blur(30px);
+      position:relative;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      transition:.35s ease;
+    }
+
+    .card:hover{
+      transform:translateY(-6px);
+      border-color:rgba(0,249,255,.22);
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+      linear-gradient(120deg,
+      transparent,
+      rgba(255,255,255,.05),
+      transparent);
+      transform:translateX(-100%);
+      transition:1.2s;
+    }
+
+    .card:hover::before{
+      transform:translateX(100%);
+    }
+
+    .span-8{grid-column:span 8}
+    .span-4{grid-column:span 4}
+    .span-6{grid-column:span 6}
+    .span-12{grid-column:span 12}
+
+    .card-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      margin-bottom:22px;
+    }
+
+    .card-title{
+      font-size:18px;
+      font-weight:700;
+      margin-bottom:6px;
+    }
+
+    .card-sub{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .tag{
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(0,249,255,.08);
+      color:var(--cyan);
+      font-size:12px;
+      font-weight:700;
+      border:1px solid rgba(0,249,255,.14);
+    }
+
+    .metrics{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .metric{
+      padding:18px;
+      border-radius:24px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .metric p{
+      color:var(--muted);
+      font-size:13px;
+      margin-bottom:10px;
+    }
+
+    .metric strong{
+      font-size:34px;
+      font-family:"Space Grotesk",sans-serif;
+    }
+
+    .chart{
+      margin-top:22px;
+      height:220px;
+      display:flex;
+      align-items:flex-end;
+      gap:10px;
+    }
+
+    .bar{
+      flex:1;
+      border-radius:20px 20px 6px 6px;
+      background:
+      linear-gradient(180deg,
+      rgba(0,249,255,.9),
+      rgba(124,58,237,.8));
+      position:relative;
+      min-height:40px;
+      animation:grow 1.5s ease;
+    }
+
+    @keyframes grow{
+      from{
+        height:0;
+        opacity:0;
+      }
+    }
+
+    .bar::after{
+      content:attr(data-value);
+      position:absolute;
+      top:-30px;
+      left:50%;
+      transform:translateX(-50%);
+      color:#d5faff;
+      font-size:12px;
+      font-weight:600;
+    }
+
+    .timeline{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .timeline-item{
+      display:flex;
+      gap:16px;
+      align-items:flex-start;
+      padding:16px;
+      border-radius:22px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .timeline-dot{
+      width:14px;
+      height:14px;
+      border-radius:50%;
+      background:var(--cyan);
+      box-shadow:0 0 20px var(--cyan);
+      margin-top:6px;
+      flex-shrink:0;
+    }
+
+    .timeline-item h4{
+      margin-bottom:6px;
+      font-size:15px;
+    }
+
+    .timeline-item p{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.6;
+    }
+
+    .calendar{
+      display:grid;
+      grid-template-columns:repeat(7,1fr);
+      gap:10px;
+      margin-top:20px;
+    }
+
+    .day{
+      aspect-ratio:1;
+      border-radius:22px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.06);
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      padding:12px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .day.active{
+      background:
+      linear-gradient(145deg,
+      rgba(0,249,255,.12),
+      rgba(124,58,237,.12));
+      border-color:rgba(0,249,255,.25);
+      box-shadow:0 0 40px rgba(0,249,255,.12);
+    }
+
+    .day span{
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .day strong{
+      font-size:20px;
+    }
+
+    .heat{
+      height:6px;
+      border-radius:999px;
+      background:
+      linear-gradient(90deg,var(--cyan),var(--purple));
+    }
+
+    .exercise-list{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .exercise{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:18px;
+      border-radius:22px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .exercise-left{
+      display:flex;
+      gap:14px;
+      align-items:center;
+    }
+
+    .exercise-icon{
+      width:52px;
+      height:52px;
+      border-radius:18px;
+      display:grid;
+      place-items:center;
+      background:
+      linear-gradient(135deg,
+      rgba(0,249,255,.2),
+      rgba(124,58,237,.2));
+      font-size:22px;
+    }
+
+    .exercise h4{
+      margin-bottom:5px;
+    }
+
+    .exercise p{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .pill{
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.06);
+      color:white;
+      font-size:12px;
+    }
+
+    .ai-panel{
+      position:relative;
+      overflow:hidden;
+    }
+
+    .ai-panel::after{
+      content:"";
+      position:absolute;
+      width:300px;
+      height:300px;
+      border-radius:50%;
+      background:radial-gradient(circle,var(--purple),transparent 70%);
+      opacity:.12;
+      right:-120px;
+      bottom:-140px;
+    }
+
+    .insight{
+      margin-top:18px;
+      padding:18px;
+      border-radius:24px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.06);
+      position:relative;
+      z-index:2;
+    }
+
+    .insight p{
+      color:#d7e0ef;
+      line-height:1.7;
+    }
+
+    .bottom-nav{
+      position:fixed;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:18px;
+      width:min(94%,820px);
+      background:rgba(12,12,12,.82);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:32px;
+      backdrop-filter:blur(24px);
+      display:flex;
+      justify-content:space-around;
+      align-items:center;
+      padding:16px 10px;
+      z-index:999;
+      box-shadow:
+      0 10px 50px rgba(0,0,0,.55);
+    }
+
+    .nav-item{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:8px;
+      color:var(--muted);
+      font-size:12px;
+      cursor:pointer;
+      transition:.3s ease;
+      min-width:70px;
+    }
+
+    .nav-item.active{
+      color:white;
+    }
+
+    .nav-icon{
+      width:46px;
+      height:46px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      background:rgba(255,255,255,.04);
+      transition:.3s ease;
+    }
+
+    .nav-item.active .nav-icon{
+      background:
+      linear-gradient(135deg,var(--cyan),var(--purple));
+      color:#000;
+      box-shadow:
+      0 0 30px rgba(0,249,255,.22);
+    }
+
+    .fab{
+      position:fixed;
+      right:26px;
+      bottom:118px;
+      width:74px;
+      height:74px;
+      border:none;
+      border-radius:28px;
+      background:
+      linear-gradient(135deg,var(--cyan),var(--purple));
+      color:#000;
+      font-size:34px;
+      cursor:pointer;
+      box-shadow:
+      0 20px 60px rgba(0,249,255,.28);
+      z-index:1000;
+      transition:.35s ease;
+    }
+
+    .fab:hover{
+      transform:translateY(-6px) scale(1.04);
+    }
+
+    .toast{
+      position:fixed;
+      top:24px;
+      left:50%;
+      transform:translateX(-50%) translateY(-200%);
+      background:rgba(15,15,15,.92);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:22px;
+      padding:16px 20px;
+      backdrop-filter:blur(18px);
+      z-index:2000;
+      transition:.55s cubic-bezier(.2,.8,.2,1);
+      box-shadow:var(--shadow);
+    }
+
+    .toast.show{
+      transform:translateX(-50%) translateY(0);
+    }
+
+    .toast strong{
+      display:block;
+      margin-bottom:6px;
+    }
+
+    .toast p{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .footer{
+      text-align:center;
+      margin-top:50px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.8;
+    }
+
+    @media(max-width:1100px){
+      .hero-grid{
+        grid-template-columns:1fr;
+      }
+
+      .span-8,
+      .span-6,
+      .span-4{
+        grid-column:span 12;
+      }
+
+      .metrics{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media(max-width:768px){
+
+      .app{
+        padding:18px 14px 140px;
+      }
+
+      .hero{
+        padding:24px;
+        border-radius:30px;
+      }
+
+      .ring{
+        width:280px;
+        height:280px;
+      }
+
+      .ring-core h3{
+        font-size:58px;
+      }
+
+      .topbar{
+        margin-bottom:20px;
+      }
+
+      .hero h2{
+        font-size:54px;
+      }
+
+      .card{
+        padding:20px;
+        border-radius:28px;
+      }
+
+      .calendar{
+        grid-template-columns:repeat(4,1fr);
+      }
+
+      .fab{
+        right:18px;
+      }
+    }
+  </style>
 </head>
-<body class="bg-[#0a0a0a] text-white min-h-screen">
-    
-    <!-- Top Navigation -->
-    <nav class="sticky top-0 z-50 glass border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-5 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#00f5ff] to-[#ff00aa] flex items-center justify-center">
-                    <i class="fa-solid fa-rocket text-black text-2xl"></i>
-                </div>
-                <div>
-                    <div class="text-3xl font-bold tracking-tighter">APEXFORGE</div>
-                    <div class="text-[10px] text-white/50 -mt-1.5">v5.7 COMPLETE • 2032</div>
-                </div>
-            </div>
-            <button onclick="showSettings()" class="w-11 h-11 flex items-center justify-center rounded-2xl glass hover:bg-white/10 transition-all">
-                <i class="fa-solid fa-cog text-xl"></i>
-            </button>
-        </div>
-    </nav>
 
-    <div class="max-w-7xl mx-auto px-5 pt-8 pb-32">
-        
-        <!-- Hero Dashboard -->
-        <div class="flex justify-between items-end mb-10">
+<body>
+
+<div class="ambient one"></div>
+<div class="ambient two"></div>
+
+<div class="toast" id="toast">
+  <strong>APEXFORGE X Activated</strong>
+  <p>Focus mode engaged. Syncing adaptive intelligence...</p>
+</div>
+
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo"></div>
+
+      <div>
+        <h1>APEXFORGE X</h1>
+        <p>Adaptive Performance Intelligence</p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="icon-btn">⌘</button>
+      <button class="icon-btn">⚙</button>
+    </div>
+  </header>
+
+  <section class="hero">
+
+    <div class="hero-grid">
+
+      <div>
+
+        <div class="eyebrow">
+          <div class="pulse"></div>
+          AI Recovery Intelligence Online
+        </div>
+
+        <h2>
+          Train Like The <span class="gradient">Future</span>
+        </h2>
+
+        <p>
+          APEXFORGE X merges intelligent cycle optimization,
+          elite performance analytics, adaptive recovery systems,
+          immersive workout flows, and cinematic interaction design
+          into a next-generation fitness operating system.
+        </p>
+
+        <div class="hero-actions">
+          <button class="primary-btn" id="startBtn">
+            START PROGRAM
+          </button>
+
+          <button class="secondary-btn">
+            OPEN CALENDAR
+          </button>
+        </div>
+
+      </div>
+
+      <div class="orbital">
+
+        <div class="floating-stat s1">
+          <h4>Recovery</h4>
+          <strong>92%</strong>
+        </div>
+
+        <div class="floating-stat s2">
+          <h4>Apex Score</h4>
+          <strong>874</strong>
+        </div>
+
+        <div class="floating-stat s3">
+          <h4>Readiness</h4>
+          <strong>HIGH</strong>
+        </div>
+
+        <div class="ring">
+
+          <div class="ring-core">
+            <h3>68%</h3>
+            <p>Cycle Adherence</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="grid">
+
+    <div class="card span-8">
+
+      <div class="card-header">
+        <div>
+          <div class="card-title">Apex Performance Analytics</div>
+          <div class="card-sub">
+            Adaptive readiness + strength velocity monitoring
+          </div>
+        </div>
+
+        <div class="tag">
+          LIVE
+        </div>
+      </div>
+
+      <div class="metrics">
+
+        <div class="metric">
+          <p>Strength Velocity</p>
+          <strong>+12%</strong>
+        </div>
+
+        <div class="metric">
+          <p>Sleep Efficiency</p>
+          <strong>89</strong>
+        </div>
+
+        <div class="metric">
+          <p>Recovery Load</p>
+          <strong>LOW</strong>
+        </div>
+
+      </div>
+
+      <div class="chart">
+
+        <div class="bar" style="height:50%" data-value="62"></div>
+        <div class="bar" style="height:68%" data-value="74"></div>
+        <div class="bar" style="height:85%" data-value="91"></div>
+        <div class="bar" style="height:72%" data-value="78"></div>
+        <div class="bar" style="height:95%" data-value="98"></div>
+        <div class="bar" style="height:60%" data-value="67"></div>
+        <div class="bar" style="height:88%" data-value="94"></div>
+
+      </div>
+
+    </div>
+
+    <div class="card span-4 ai-panel">
+
+      <div class="card-header">
+        <div>
+          <div class="card-title">AI Daily Summary</div>
+          <div class="card-sub">
+            Adaptive wellness intelligence
+          </div>
+        </div>
+
+        <div class="tag">AI</div>
+      </div>
+
+      <div class="insight">
+        <p>
+          Recovery trending upward due to improved sleep consistency.
+          Chest strength velocity has slowed 4% this week — recommend
+          reduced fatigue loading and mobility-focused recovery today.
+        </p>
+      </div>
+
+      <div class="insight">
+        <p>
+          Mood stability increases significantly when hydration exceeds
+          3.4L daily. Predicted adherence probability tomorrow: 93%.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="card span-6">
+
+      <div class="card-header">
+        <div>
+          <div class="card-title">Immersive Calendar</div>
+          <div class="card-sub">
+            Predictive scheduling + adherence heatmaps
+          </div>
+        </div>
+
+        <div class="tag">SYNCED</div>
+      </div>
+
+      <div class="calendar">
+
+        <div class="day active">
+          <span>MON</span>
+          <strong>12</strong>
+          <div class="heat"></div>
+        </div>
+
+        <div class="day">
+          <span>TUE</span>
+          <strong>13</strong>
+          <div class="heat"></div>
+        </div>
+
+        <div class="day active">
+          <span>WED</span>
+          <strong>14</strong>
+          <div class="heat"></div>
+        </div>
+
+        <div class="day">
+          <span>THU</span>
+          <strong>15</strong>
+          <div class="heat"></div>
+        </div>
+
+        <div class="day active">
+          <span>FRI</span>
+          <strong>16</strong>
+          <div class="heat"></div>
+        </div>
+
+        <div class="day">
+          <span>SAT</span>
+          <strong>17</strong>
+          <div class="heat"></div>
+        </div>
+
+        <div class="day active">
+          <span>SUN</span>
+          <strong>18</strong>
+          <div class="heat"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="card span-6">
+
+      <div class="card-header">
+        <div>
+          <div class="card-title">Today’s Guided Training</div>
+          <div class="card-sub">
+            Phase-aware intelligent recommendations
+          </div>
+        </div>
+
+        <div class="tag">FOCUS</div>
+      </div>
+
+      <div class="exercise-list">
+
+        <div class="exercise">
+          <div class="exercise-left">
+
+            <div class="exercise-icon">
+              🏋
+            </div>
+
             <div>
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 text-sm mb-4">
-                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                    GOOD MORNING, ANGEL
-                </div>
-                <h1 class="text-7xl font-bold tracking-tighter">DAY 47 <span class="text-white/40">OF 84</span></h1>
-                <div class="flex items-center gap-5 mt-4">
-                    <div class="flex items-center gap-2 text-xl">
-                        <i class="fa-solid fa-fire text-orange-400"></i> 
-                        <span class="font-semibold">12</span> 
-                        <span class="text-white/50">DAY STREAK</span>
-                    </div>
-                    <div class="text-sm text-white/50">Personal best: 19 days</div>
-                </div>
+              <h4>Push Power Session</h4>
+              <p>Chest • Delts • Triceps</p>
             </div>
-            
-            <div class="relative w-40 h-40 flex-shrink-0">
-                <svg class="w-40 h-40 -rotate-90" viewBox="0 0 120 120">
-                    <circle cx="60" cy="60" r="52" fill="none" stroke="#ffffff10" stroke-width="9"/>
-                    <circle cx="60" cy="60" r="52" fill="none" stroke="#00f5ff" stroke-width="9" stroke-dasharray="326" stroke-dashoffset="82" stroke-linecap="round"/>
-                </svg>
-                <div class="absolute inset-0 flex flex-col items-center justify-center">
-                    <div class="text-6xl font-bold stat-value">87</div>
-                    <div class="text-xs text-white/50 -mt-1">COMPLETE</div>
-                </div>
-            </div>
+
+          </div>
+
+          <div class="pill">
+            72 MIN
+          </div>
         </div>
 
-        <!-- Quick Log Buttons -->
-        <div class="flex gap-3 mb-8">
-            <button onclick="quickLog('symptom')" class="flex-1 py-3 rounded-2xl glass flex items-center justify-center gap-2 text-sm">
-                <i class="fa-solid fa-notes-medical"></i> <span>Log Symptom</span>
-            </button>
-            <button onclick="quickLog('meal')" class="flex-1 py-3 rounded-2xl glass flex items-center justify-center gap-2 text-sm">
-                <i class="fa-solid fa-utensils"></i> <span>Log Meal</span>
-            </button>
-            <button onclick="quickLog('sleep')" class="flex-1 py-3 rounded-2xl glass flex items-center justify-center gap-2 text-sm">
-                <i class="fa-solid fa-bed"></i> <span>Log Sleep</span>
-            </button>
+        <div class="exercise">
+          <div class="exercise-left">
+
+            <div class="exercise-icon">
+              🫁
+            </div>
+
+            <div>
+              <h4>Breathing Recovery Flow</h4>
+              <p>Parasympathetic reset protocol</p>
+            </div>
+
+          </div>
+
+          <div class="pill">
+            10 MIN
+          </div>
         </div>
 
-        <!-- Bottom Navigation -->
-        <div class="fixed bottom-0 left-0 right-0 z-50 glass border-t border-white/10 px-2 py-2">
-            <div class="max-w-7xl mx-auto flex justify-around">
-                <button onclick="switchTab('dashboard')" class="nav-btn flex flex-col items-center gap-1 px-4 py-2 text-xs" id="nav-dashboard">
-                    <i class="fa-solid fa-home text-xl"></i><span>Dashboard</span>
-                </button>
-                <button onclick="switchTab('calendar')" class="nav-btn flex flex-col items-center gap-1 px-4 py-2 text-xs text-white/60" id="nav-calendar">
-                    <i class="fa-solid fa-calendar text-xl"></i><span>Calendar</span>
-                </button>
-                <button onclick="switchTab('exercise')" class="nav-btn flex flex-col items-center gap-1 px-4 py-2 text-xs text-white/60" id="nav-exercise">
-                    <i class="fa-solid fa-dumbbell text-xl"></i><span>Exercise</span>
-                </button>
-                <button onclick="showAIChat()" class="nav-btn flex flex-col items-center gap-1 px-4 py-2 text-xs text-white/60" id="nav-ai">
-                    <i class="fa-solid fa-robot text-xl"></i><span>AI</span>
-                </button>
+        <div class="exercise">
+          <div class="exercise-left">
+
+            <div class="exercise-icon">
+              🧘
             </div>
+
+            <div>
+              <h4>Mobility Restoration</h4>
+              <p>Shoulder + thoracic optimization</p>
+            </div>
+
+          </div>
+
+          <div class="pill">
+            AI ADAPTIVE
+          </div>
         </div>
 
-NEXT 
-                <!-- DASHBOARD CONTENT -->
-        <div id="content-dashboard" class="tab-content">
-            <div class="glass rounded-3xl p-7 mb-6">
-                <div class="flex justify-between mb-6">
-                    <div>
-                        <div class="text-sm text-white/50">TODAY'S PROTOCOL</div>
-                        <div class="text-2xl font-semibold">Day 47 Schedule</div>
-                    </div>
-                    <div class="px-4 py-1.5 rounded-2xl bg-emerald-500/10 text-emerald-400 text-xs font-semibold">87% DONE</div>
-                </div>
-                <div class="space-y-3">
-                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-2xl"><div>06:30 — MK-677 15–20mg</div><div class="text-emerald-400 text-sm">DONE</div></div>
-                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-2xl"><div>06:45 — Morning Shake + Core Work</div><div class="text-emerald-400 text-sm">DONE</div></div>
-                    <div class="flex justify-between items-center p-4 bg-[#00f5ff]/10 border border-[#00f5ff]/40 rounded-2xl"><div>08:00 — Test E + NPP</div><div class="text-[#00f5ff] text-sm font-semibold">NOW</div></div>
-                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-2xl"><div>12:00 — Lunch + 50g Protein</div><div class="text-white/40 text-sm">UPCOMING</div></div>
-                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-2xl"><div>17:30 — Training Session</div><div class="text-white/40 text-sm">UPCOMING</div></div>
-                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-2xl"><div>20:00 — TB-500 Injection</div><div class="text-white/40 text-sm">UPCOMING</div></div>
-                </div>
-            </div>
+      </div>
 
-            <div class="grid grid-cols-2 gap-4 mb-6">
-                <div class="glass rounded-3xl p-6"><div class="text-sm text-white/50">ENERGY SCORE</div><div class="text-6xl font-bold stat-value mt-1">87</div><div class="text-emerald-400 text-sm">+12 from yesterday</div></div>
-                <div class="glass rounded-3xl p-6"><div class="text-sm text-white/50">RECOVERY</div><div class="text-6xl font-bold stat-value mt-1">92</div><div class="text-emerald-400 text-sm">Excellent</div></div>
-            </div>
-
-            <!-- Progress History -->
-            <div class="glass rounded-3xl p-7">
-                <div class="text-sm text-white/50 mb-4">THIS WEEK'S PROGRESS</div>
-                <div class="flex justify-between items-end h-20 mb-2">
-                    <div class="flex flex-col items-center"><div class="w-5 bg-[#00f5ff] rounded-t" style="height: 70%"></div><div class="text-[10px] mt-1">Mon</div></div>
-                    <div class="flex flex-col items-center"><div class="w-5 bg-[#00f5ff] rounded-t" style="height: 85%"></div><div class="text-[10px] mt-1">Tue</div></div>
-                    <div class="flex flex-col items-center"><div class="w-5 bg-[#00f5ff] rounded-t" style="height: 60%"></div><div class="text-[10px] mt-1">Wed</div></div>
-                    <div class="flex flex-col items-center"><div class="w-5 bg-[#00f5ff] rounded-t" style="height: 95%"></div><div class="text-[10px] mt-1">Thu</div></div>
-                    <div class="flex flex-col items-center"><div class="w-5 bg-[#00f5ff] rounded-t" style="height: 80%"></div><div class="text-[10px] mt-1">Fri</div></div>
-                    <div class="flex flex-col items-center"><div class="w-5 bg-[#00f5ff] rounded-t" style="height: 75%"></div><div class="text-[10px] mt-1">Sat</div></div>
-                    <div class="flex flex-col items-center"><div class="w-5 bg-[#00f5ff] rounded-t" style="height: 90%"></div><div class="text-[10px] mt-1">Sun</div></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- CALENDAR CONTENT -->
-        <div id="content-calendar" class="tab-content hidden">
-            <div class="glass rounded-3xl p-7">
-                <div class="flex justify-between items-center mb-6">
-                    <div>
-                        <div class="text-sm text-white/50">CYCLE INTELLIGENCE</div>
-                        <div class="text-3xl font-semibold">February 2026</div>
-                    </div>
-                    <div class="flex gap-2">
-                        <button onclick="prevMonth()" class="w-10 h-10 glass rounded-2xl flex items-center justify-center"><i class="fa-solid fa-chevron-left"></i></button>
-                        <button onclick="nextMonth()" class="w-10 h-10 glass rounded-2xl flex items-center justify-center"><i class="fa-solid fa-chevron-right"></i></button>
-                    </div>
-                </div>
-                <div class="grid grid-cols-7 gap-1 text-center text-xs mb-2 text-white/40">
-                    <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
-                </div>
-                <div id="calendar-grid" class="grid grid-cols-7 gap-1 text-sm"></div>
-            </div>
-        </div>
-
-        <!-- EXERCISE CONTENT -->
-        <div id="content-exercise" class="tab-content hidden">
-            <div class="mb-6">
-                <div class="text-sm text-white/50">CURRENT PHASE: OVULATORY</div>
-                <div class="text-3xl font-semibold">Recommended Workouts</div>
-            </div>
-            <div class="space-y-4">
-                <div onclick="showExerciseDetail(0)" class="premium-card glass p-6 rounded-3xl flex justify-between items-center cursor-pointer">
-                    <div><div class="font-semibold text-xl">High-Intensity Strength</div><div class="text-white/50">45 min • Intermediate</div></div>
-                    <div class="text-4xl">🏋️</div>
-                </div>
-                <div onclick="showExerciseDetail(1)" class="premium-card glass p-6 rounded-3xl flex justify-between items-center cursor-pointer">
-                    <div><div class="font-semibold text-xl">Mobility Flow</div><div class="text-white/50">25 min • All Levels</div></div>
-                    <div class="text-4xl">🧘</div>
-                </div>
-                <div onclick="showExerciseDetail(2)" class="premium-card glass p-6 rounded-3xl flex justify-between items-center cursor-pointer">
-                    <div><div class="font-semibold text-xl">Power Endurance</div><div class="text-white/50">40 min • Advanced</div></div>
-                    <div class="text-4xl">⚡</div>
-                </div>
-                <div onclick="showExerciseDetail(3)" class="premium-card glass p-6 rounded-3xl flex justify-between items-center cursor-pointer">
-                    <div><div class="font-semibold text-xl">Recovery Breathwork</div><div class="text-white/50">15 min • All Levels</div></div>
-                    <div class="text-4xl">🧘‍♀️</div>
-                </div>
-                <div onclick="showExerciseDetail(4)" class="premium-card glass p-6 rounded-3xl flex justify-between items-center cursor-pointer">
-                    <div><div class="font-semibold text-xl">Core & Stability</div><div class="text-white/50">30 min • Intermediate</div></div>
-                    <div class="text-4xl">💪</div>
-                </div>
-                <div onclick="showExerciseDetail(5)" class="premium-card glass p-6 rounded-3xl flex justify-between items-center cursor-pointer">
-                    <div><div class="font-semibold text-xl">HIIT Cardio</div><div class="text-white/50">25 min • Advanced</div></div>
-                    <div class="text-4xl">🔥</div>
-                </div>
-            </div>
-        </div>
     </div>
 
-NEXT    <!-- START FLOW MODAL -->
-    <div id="start-modal" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-6" onclick="hideStartModal()">
-        <div onclick="event.stopImmediatePropagation()" class="glass-strong rounded-3xl w-full max-w-md p-8">
-            <div id="start-step-1">
-                <div class="text-center mb-8">
-                    <div class="text-6xl mb-4">🚀</div>
-                    <div class="text-4xl font-semibold">What do you want to start?</div>
-                </div>
-                <div class="space-y-3">
-                    <div onclick="selectStartType('New Cycle')" class="p-5 rounded-2xl border border-white/10 flex gap-4 cursor-pointer hover:border-white/30">
-                        <div class="text-3xl">🔄</div>
-                        <div><div class="font-semibold">New Cycle</div><div class="text-sm text-white/50">Begin tracking your next phase</div></div>
-                    </div>
-                    <div onclick="selectStartType('New Goal')" class="p-5 rounded-2xl border border-white/10 flex gap-4 cursor-pointer hover:border-white/30">
-                        <div class="text-3xl">🎯</div>
-                        <div><div class="font-semibold">New Goal</div><div class="text-sm text-white/50">Set a 4–12 week objective</div></div>
-                    </div>
-                    <div onclick="selectStartType('Training Program')" class="p-5 rounded-2xl border border-white/10 flex gap-4 cursor-pointer hover:border-white/30">
-                        <div class="text-3xl">📋</div>
-                        <div><div class="font-semibold">Training Program</div><div class="text-sm text-white/50">Follow a structured plan</div></div>
-                    </div>
-                    <div onclick="selectStartType('Daily Routine')" class="p-5 rounded-2xl border border-white/10 flex gap-4 cursor-pointer hover:border-white/30">
-                        <div class="text-3xl">⚡</div>
-                        <div><div class="font-semibold">Daily Routine</div><div class="text-sm text-white/50">Start a new habit</div></div>
-                    </div>
-                </div>
-            </div>
-            
-            <div id="start-step-2" class="hidden">
-                <div class="text-center mb-8">
-                    <div class="text-6xl mb-4">🔥</div>
-                    <div class="text-3xl font-semibold">Starting <span id="start-type-name" class="text-[#00f5ff]"></span></div>
-                </div>
-                <div class="mb-8">
-                    <div class="flex justify-between text-sm mb-2">
-                        <div>Duration</div>
-                        <div id="duration-text" class="font-semibold">28 days</div>
-                    </div>
-                    <input type="range" id="duration" min="7" max="84" value="28" class="w-full accent-[#00f5ff]" oninput="updateDuration()">
-                </div>
-                <button onclick="confirmStart()" class="w-full py-4 rounded-3xl bg-white text-black font-semibold text-lg">BEGIN →</button>
-            </div>
+    <div class="card span-12">
+
+      <div class="card-header">
+        <div>
+          <div class="card-title">Cycle Timeline Intelligence</div>
+          <div class="card-sub">
+            Guided optimization engine + predictive recovery
+          </div>
         </div>
+
+        <div class="tag">12 WEEK PLAN</div>
+      </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+
+          <div>
+            <h4>Blast Phase — Peak Performance Window</h4>
+            <p>
+              Strength acceleration trending above projected baseline.
+              AI recommends increased caloric support for optimal recovery adaptation.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+
+          <div>
+            <h4>Recovery Deload Integration</h4>
+            <p>
+              CNS fatigue probability increasing after week 8. Strategic recovery
+              insertion recommended to preserve long-term output velocity.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+
+          <div>
+            <h4>Readiness Forecast</h4>
+            <p>
+              Current adherence patterns predict 94% goal completion probability
+              if sleep consistency remains above 7.4h average.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
     </div>
 
-    <!-- AI CHAT MODAL -->
-    <div id="ai-modal" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-end justify-center p-6" onclick="hideAIChat()">
-        <div onclick="event.stopImmediatePropagation()" class="glass-strong rounded-3xl w-full max-w-md h-[70vh] flex flex-col">
-            <div class="p-5 flex justify-between items-center border-b border-white/10">
-                <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-[#00f5ff] to-[#ff00aa]"></div>
-                    <div>
-                        <div class="font-semibold">Apex AI</div>
-                        <div class="text-xs text-emerald-400">Online • Always learning</div>
-                    </div>
-                </div>
-                <button onclick="hideAIChat()"><i class="fa-solid fa-times text-xl"></i></button>
-            </div>
-            
-            <div id="ai-chat" class="flex-1 p-5 overflow-y-auto space-y-4 text-sm"></div>
-            
-            <div class="p-4 border-t border-white/10">
-                <div class="flex gap-3">
-                    <input id="ai-input" type="text" placeholder="Ask about cycle, training, mood..." class="flex-1 bg-white/10 rounded-3xl px-5 py-3 text-sm focus:outline-none" onkeypress="if(event.key==='Enter') sendAI()">
-                    <button onclick="sendAI()" class="w-12 h-12 rounded-3xl bg-white text-black flex items-center justify-center">
-                        <i class="fa-solid fa-paper-plane"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+  </section>
 
-    <!-- EXERCISE DETAIL MODAL -->
-    <div id="exercise-modal" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-6" onclick="hideExerciseModal()">
-        <div onclick="event.stopImmediatePropagation()" class="glass-strong rounded-3xl w-full max-w-md p-8">
-            <div id="exercise-content"></div>
-            <button onclick="hideExerciseModal()" class="mt-6 w-full py-3 rounded-2xl border border-white/20">Close</button>
-        </div>
-    </div>
+  <div class="footer">
+    APEXFORGE X — Future-ready fitness intelligence platform.<br />
+    Wellness tracking only. Not medical advice or diagnosis.
+  </div>
 
-    <!-- SETTINGS MODAL -->
-    <div id="settings-modal" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-6" onclick="hideSettings()">
-        <div onclick="event.stopImmediatePropagation()" class="glass-strong rounded-3xl w-full max-w-md p-8">
-            <div class="flex justify-between items-center mb-8">
-                <div class="text-3xl font-semibold">Settings</div>
-                <button onclick="hideSettings()"><i class="fa-solid fa-times text-xl"></i></button>
-            </div>
-            
-            <div class="space-y-5 text-sm">
-                <div class="flex items-center justify-between py-2 border-b border-white/10">
-                    <div>Theme & Appearance</div>
-                    <div class="text-white/40">→</div>
-                </div>
-                <div class="flex items-center justify-between py-2 border-b border-white/10">
-                    <div>AI Preferences</div>
-                    <div class="text-white/40">→</div>
-                </div>
-                <div class="flex items-center justify-between py-2 border-b border-white/10">
-                    <div>Notification Settings</div>
-                    <div class="text-white/40">→</div>
-                </div>
-                <div class="flex items-center justify-between py-2 border-b border-white/10">
-                    <div>Data Export</div>
-                    <div class="text-white/40">→</div>
-                </div>
-                <div class="flex items-center justify-between py-2 border-b border-white/10">
-                    <div>Privacy & Security</div>
-                    <div class="text-white/40">→</div>
-                </div>
-                <div class="flex items-center justify-between py-2">
-                    <div>Account Settings</div>
-                    <div class="text-white/40">→</div>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
 
-NEXT    
-    <script>
-        // ==================== APEXFORGE v5.7 COMPLETE ====================
-        
-        function initialize() {
-            document.getElementById('content-dashboard').classList.remove('hidden');
-            document.getElementById('nav-dashboard').classList.add('nav-active');
-            renderCalendar();
-            console.log('%c[ApexForge v5.7] Loaded successfully', 'color:#00f5ff');
-        }
-        
-        let currentMonth = new Date();
-        
-        function renderCalendar() {
-            const grid = document.getElementById('calendar-grid');
-            grid.innerHTML = '';
-            
-            const year = currentMonth.getFullYear();
-            const month = currentMonth.getMonth();
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            
-            for (let i = 0; i < firstDay; i++) {
-                grid.innerHTML += `<div class="h-11"></div>`;
-            }
-            
-            for (let day = 1; day <= daysInMonth; day++) {
-                const isToday = day === 47;
-                const phase = day <= 5 ? 'Menstrual' : day <= 13 ? 'Follicular' : day <= 16 ? 'Ovulatory' : 'Luteal';
-                
-                grid.innerHTML += `
-                    <div onclick="selectDay(${day})" class="h-11 flex items-center justify-center rounded-xl text-sm font-medium cursor-pointer ${isToday ? 'bg-[#00f5ff] text-black' : 'hover:bg-white/10'}">
-                        <div class="text-center">
-                            <div>${day}</div>
-                            <div class="text-[8px] opacity-60">${phase.slice(0,3)}</div>
-                        </div>
-                    </div>
-                `;
-            }
-        }
-        
-        function selectDay(day) {
-            const phase = day <= 5 ? 'Menstrual' : day <= 13 ? 'Follicular' : day <= 16 ? 'Ovulatory' : 'Luteal';
-            alert(`Day ${day} — ${phase} Phase\n\nEnergy: High\nRecommended: Heavy lifts + social activities\nSleep target: 8-9 hours`);
-        }
-        
-        function prevMonth() {
-            currentMonth.setMonth(currentMonth.getMonth() - 1);
-            renderCalendar();
-        }
-        
-        function nextMonth() {
-            currentMonth.setMonth(currentMonth.getMonth() + 1);
-            renderCalendar();
-        }
-        
-        function switchTab(tab) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById(`content-${tab}`).classList.remove('hidden');
-            
-            document.querySelectorAll('[id^="nav-"]').forEach(el => el.classList.remove('nav-active'));
-            document.getElementById(`nav-${tab}`).classList.add('nav-active');
-        }
-        
-        // START FLOW
-        let startType = '';
-        
-        function showStartModal() {
-            document.getElementById('start-modal').classList.remove('hidden');
-            document.getElementById('start-step-1').classList.remove('hidden');
-            document.getElementById('start-step-2').classList.add('hidden');
-        }
-        
-        function hideStartModal() {
-            document.getElementById('start-modal').classList.add('hidden');
-        }
-        
-        function selectStartType(type) {
-            startType = type;
-            document.getElementById('start-step-1').classList.add('hidden');
-            document.getElementById('start-step-2').classList.remove('hidden');
-            document.getElementById('start-type-name').innerHTML = type;
-        }
-        
-        function updateDuration() {
-            const val = document.getElementById('duration').value;
-            document.getElementById('duration-text').innerHTML = val + ' days';
-        }
-        
-        function confirmStart() {
-            const duration = document.getElementById('duration').value;
-            hideStartModal();
-            alert(`🚀 ${startType} started for ${duration} days!\n\nLive tracking activated.\nYour dashboard will now update in real-time.`);
-        }
-        
-        // SETTINGS
-        function showSettings() {
-            document.getElementById('settings-modal').classList.remove('hidden');
-        }
-        
-        function hideSettings() {
-            document.getElementById('settings-modal').classList.add('hidden');
-        }
-        
-        // QUICK LOG
-        function quickLog(type) {
-            let msg = '';
-            if (type === 'symptom') msg = 'Symptom logged. Thank you for tracking.';
-            else if (type === 'meal') msg = 'Meal logged. Great job staying consistent!';
-            else if (type === 'sleep') msg = 'Sleep logged. Quality sleep is key to recovery.';
-            alert(msg);
-        }
-        
-NEXT
-                // AI CHAT
-        let aiHistory = [];
-        
-        function showAIChat() {
-            document.getElementById('ai-modal').classList.remove('hidden');
-            const chat = document.getElementById('ai-chat');
-            chat.innerHTML = '';
-            
-            if (aiHistory.length === 0) {
-                addAIMessage("assistant", "Hey Angel! How are you feeling today? I'm here to help with your cycle, training, recovery, or mood.");
-            } else {
-                aiHistory.forEach(msg => addAIMessage(msg.role, msg.content, true));
-            }
-        }
-        
-        function hideAIChat() {
-            document.getElementById('ai-modal').classList.add('hidden');
-        }
-        
-        function addAIMessage(role, content, skipSave = false) {
-            const chat = document.getElementById('ai-chat');
-            const div = document.createElement('div');
-            div.className = `flex ${role === 'user' ? 'justify-end' : ''}`;
-            div.innerHTML = `
-                <div class="max-w-[80%] px-4 py-3 rounded-3xl text-sm ${role === 'user' ? 'bg-[#00f5ff] text-black' : 'bg-white/10'}">
-                    ${content}
-                </div>
-            `;
-            chat.appendChild(div);
-            chat.scrollTop = chat.scrollHeight;
-            
-            if (!skipSave) aiHistory.push({ role, content });
-        }
-        
-        function sendAI() {
-            const input = document.getElementById('ai-input');
-            const value = input.value.trim();
-            if (!value) return;
-            
-            addAIMessage('user', value);
-            input.value = '';
-            
-            setTimeout(() => {
-                let reply = "Got it. How does that feel today?";
-                const lower = value.toLowerCase();
-                
-                if (lower.includes('tired') || lower.includes('energy')) {
-                    reply = "You're in luteal phase — energy naturally drops. Reduce training intensity by 20% and prioritize sleep tonight.";
-                } else if (lower.includes('training') || lower.includes('workout')) {
-                    reply = "Perfect timing! Ovulatory phase is ideal for heavy lifts. Focus on compound movements today.";
-                } else if (lower.includes('mood') || lower.includes('anxious')) {
-                    reply = "Hormonal shifts can amplify emotions right now. A 10-minute walk + magnesium often helps significantly.";
-                } else if (lower.includes('hungry') || lower.includes('craving')) {
-                    reply = "Cravings are completely normal in this phase. Protein + healthy fats work very well to reduce them.";
-                } else if (lower.includes('sleep')) {
-                    reply = "Sleep quality is crucial right now. Aim for 8-9 hours and avoid screens 1 hour before bed.";
-                } else if (lower.includes('stress')) {
-                    reply = "Stress can disrupt your cycle. Try 5 minutes of deep breathing or a short walk outside.";
-                } else if (lower.includes('pain') || lower.includes('cramps')) {
-                    reply = "Cramps are common in menstrual phase. Heat therapy + magnesium + gentle movement usually helps.";
-                } else if (lower.includes('hormone')) {
-                    reply = "Your hormone levels are shifting. This is normal. Track symptoms and adjust training accordingly.";
-                } else if (lower.includes('motivation')) {
-                    reply = "You're doing great. Small consistent actions compound over time. Keep showing up.";
-                }
-                
-                addAIMessage('assistant', reply);
-            }, 850);
-        }
-        
-        // EXERCISE DETAIL
-        function showExerciseDetail(index) {
-            const exercises = [
-                { title: "High-Intensity Strength", duration: "45 min", level: "Intermediate", desc: "Focus on compound movements like squats, deadlifts, and bench press. Great for building strength during ovulatory phase." },
-                { title: "Mobility Flow", duration: "25 min", level: "All Levels", desc: "Full body mobility and stretching routine. Perfect for recovery days and improving range of motion." },
-                { title: "Power Endurance", duration: "40 min", level: "Advanced", desc: "High-intensity circuit training. Excellent for building work capacity and mental toughness." },
-                { title: "Recovery Breathwork", duration: "15 min", level: "All Levels", desc: "Guided breathing exercises to reduce stress and improve recovery. Use this on rest days." },
-                { title: "Core & Stability", duration: "30 min", level: "Intermediate", desc: "Targeted core work and stability training. Excellent for injury prevention." },
-                { title: "HIIT Cardio", duration: "25 min", level: "Advanced", desc: "High-intensity interval training. Great for fat loss and cardiovascular health." }
-            ];
-            
-            const ex = exercises[index];
-            document.getElementById('exercise-content').innerHTML = `
-                <div class="text-4xl mb-4">${index === 0 ? '🏋️' : index === 1 ? '🧘' : index === 2 ? '⚡' : index === 3 ? '🧘‍♀️' : index === 4 ? '💪' : '🔥'}</div>
-                <div class="text-3xl font-semibold mb-2">${ex.title}</div>
-                <div class="text-white/50 mb-6">${ex.duration} • ${ex.level}</div>
-                <div class="text-sm leading-relaxed">${ex.desc}</div>
-                <button onclick="startWorkout('${ex.title}'); hideExerciseModal()" class="mt-8 w-full py-4 rounded-3xl bg-white text-black font-semibold">START SESSION</button>
-            `;
-            document.getElementById('exercise-modal').classList.remove('hidden');
-        }
-        
-        function hideExerciseModal() {
-            document.getElementById('exercise-modal').classList.add('hidden');
-        }
-        
-        function startWorkout(title) {
-            alert(`Starting: ${title}\n\nTimer started. Good luck!`);
-        }
-        
-NEXT
-                // AI CHAT
-        let aiHistory = [];
-        
-        function showAIChat() {
-            document.getElementById('ai-modal').classList.remove('hidden');
-            const chat = document.getElementById('ai-chat');
-            chat.innerHTML = '';
-            
-            if (aiHistory.length === 0) {
-                addAIMessage("assistant", "Hey Angel! How are you feeling today? I'm here to help with your cycle, training, recovery, or mood.");
-            } else {
-                aiHistory.forEach(msg => addAIMessage(msg.role, msg.content, true));
-            }
-        }
-        
-        function hideAIChat() {
-            document.getElementById('ai-modal').classList.add('hidden');
-        }
-        
-        function addAIMessage(role, content, skipSave = false) {
-            const chat = document.getElementById('ai-chat');
-            const div = document.createElement('div');
-            div.className = `flex ${role === 'user' ? 'justify-end' : ''}`;
-            div.innerHTML = `
-                <div class="max-w-[80%] px-4 py-3 rounded-3xl text-sm ${role === 'user' ? 'bg-[#00f5ff] text-black' : 'bg-white/10'}">
-                    ${content}
-                </div>
-            `;
-            chat.appendChild(div);
-            chat.scrollTop = chat.scrollHeight;
-            
-            if (!skipSave) aiHistory.push({ role, content });
-        }
-        
-        function sendAI() {
-            const input = document.getElementById('ai-input');
-            const value = input.value.trim();
-            if (!value) return;
-            
-            addAIMessage('user', value);
-            input.value = '';
-            
-            setTimeout(() => {
-                let reply = "Got it. How does that feel today?";
-                const lower = value.toLowerCase();
-                
-                if (lower.includes('tired') || lower.includes('energy')) {
-                    reply = "You're in luteal phase — energy naturally drops. Reduce training intensity by 20% and prioritize sleep tonight.";
-                } else if (lower.includes('training') || lower.includes('workout')) {
-                    reply = "Perfect timing! Ovulatory phase is ideal for heavy lifts. Focus on compound movements today.";
-                } else if (lower.includes('mood') || lower.includes('anxious')) {
-                    reply = "Hormonal shifts can amplify emotions right now. A 10-minute walk + magnesium often helps significantly.";
-                } else if (lower.includes('hungry') || lower.includes('craving')) {
-                    reply = "Cravings are completely normal in this phase. Protein + healthy fats work very well to reduce them.";
-                } else if (lower.includes('sleep')) {
-                    reply = "Sleep quality is crucial right now. Aim for 8-9 hours and avoid screens 1 hour before bed.";
-                } else if (lower.includes('stress')) {
-                    reply = "Stress can disrupt your cycle. Try 5 minutes of deep breathing or a short walk outside.";
-                } else if (lower.includes('pain') || lower.includes('cramps')) {
-                    reply = "Cramps are common in menstrual phase. Heat therapy + magnesium + gentle movement usually helps.";
-                } else if (lower.includes('hormone')) {
-                    reply = "Your hormone levels are shifting. This is normal. Track symptoms and adjust training accordingly.";
-                } else if (lower.includes('motivation')) {
-                    reply = "You're doing great. Small consistent actions compound over time. Keep showing up.";
-                }
-                
-                addAIMessage('assistant', reply);
-            }, 850);
-        }
-        
-        // EXERCISE DETAIL
-        function showExerciseDetail(index) {
-            const exercises = [
-                { title: "High-Intensity Strength", duration: "45 min", level: "Intermediate", desc: "Focus on compound movements like squats, deadlifts, and bench press. Great for building strength during ovulatory phase." },
-                { title: "Mobility Flow", duration: "25 min", level: "All Levels", desc: "Full body mobility and stretching routine. Perfect for recovery days and improving range of motion." },
-                { title: "Power Endurance", duration: "40 min", level: "Advanced", desc: "High-intensity circuit training. Excellent for building work capacity and mental toughness." },
-                { title: "Recovery Breathwork", duration: "15 min", level: "All Levels", desc: "Guided breathing exercises to reduce stress and improve recovery. Use this on rest days." },
-                { title: "Core & Stability", duration: "30 min", level: "Intermediate", desc: "Targeted core work and stability training. Excellent for injury prevention." },
-                { title: "HIIT Cardio", duration: "25 min", level: "Advanced", desc: "High-intensity interval training. Great for fat loss and cardiovascular health." }
-            ];
-            
-            const ex = exercises[index];
-            document.getElementById('exercise-content').innerHTML = `
-                <div class="text-4xl mb-4">${index === 0 ? '🏋️' : index === 1 ? '🧘' : index === 2 ? '⚡' : index === 3 ? '🧘‍♀️' : index === 4 ? '💪' : '🔥'}</div>
-                <div class="text-3xl font-semibold mb-2">${ex.title}</div>
-                <div class="text-white/50 mb-6">${ex.duration} • ${ex.level}</div>
-                <div class="text-sm leading-relaxed">${ex.desc}</div>
-                <button onclick="startWorkout('${ex.title}'); hideExerciseModal()" class="mt-8 w-full py-4 rounded-3xl bg-white text-black font-semibold">START SESSION</button>
-            `;
-            document.getElementById('exercise-modal').classList.remove('hidden');
-        }
-        
-        function hideExerciseModal() {
-            document.getElementById('exercise-modal').classList.add('hidden');
-        }
-        
-        function startWorkout(title) {
-            alert(`Starting: ${title}\n\nTimer started. Good luck!`);
-        }
-        
-NEXT
-                // FINAL HELPER FUNCTIONS
-        function quickLog(type) {
-            let msg = '';
-            if (type === 'symptom') msg = 'Symptom logged. Thank you for tracking.';
-            else if (type === 'meal') msg = 'Meal logged. Great job staying consistent!';
-            else if (type === 'sleep') msg = 'Sleep logged. Quality sleep is key to recovery.';
-            alert(msg);
-        }
-        
-        function showSettings() {
-            document.getElementById('settings-modal').classList.remove('hidden');
-        }
-        
-        function hideSettings() {
-            document.getElementById('settings-modal').classList.add('hidden');
-        }
-        
-        // INITIALIZE EVERYTHING
-        window.onload = initialize;
-        
-    </script>
+<button class="fab" id="fab">
+  +
+</button>
+
+<nav class="bottom-nav">
+
+  <div class="nav-item active">
+    <div class="nav-icon">⌂</div>
+    <span>Home</span>
+  </div>
+
+  <div class="nav-item">
+    <div class="nav-icon">◫</div>
+    <span>Calendar</span>
+  </div>
+
+  <div class="nav-item">
+    <div class="nav-icon">◎</div>
+    <span>Cycle</span>
+  </div>
+
+  <div class="nav-item">
+    <div class="nav-icon">⬢</div>
+    <span>Insights</span>
+  </div>
+
+  <div class="nav-item">
+    <div class="nav-icon">⚙</div>
+    <span>Settings</span>
+  </div>
+
+</nav>
+
+<script>
+
+  const toast = document.getElementById("toast");
+  const startBtn = document.getElementById("startBtn");
+  const fab = document.getElementById("fab");
+
+  function showToast(message){
+    toast.querySelector("p").textContent = message;
+    toast.classList.add("show");
+
+    setTimeout(()=>{
+      toast.classList.remove("show");
+    },3000);
+  }
+
+  startBtn.addEventListener("click",()=>{
+
+    document.body.animate([
+      {transform:"scale(1)"},
+      {transform:"scale(1.005)"},
+      {transform:"scale(1)"}
+    ],{
+      duration:700,
+      easing:"cubic-bezier(.2,.8,.2,1)"
+    });
+
+    showToast(
+      "Cycle activation initiated. Adaptive tracking systems online."
+    );
+  });
+
+  fab.addEventListener("click",()=>{
+    showToast(
+      "Quick capture launched. Logging today's metrics..."
+    );
+  });
+
+  document.querySelectorAll(".nav-item").forEach(item=>{
+
+    item.addEventListener("click",()=>{
+
+      document
+      .querySelectorAll(".nav-item")
+      .forEach(n=>n.classList.remove("active"));
+
+      item.classList.add("active");
+
+      showToast(
+        item.innerText.trim() + " experience opened."
+      );
+    });
+
+  });
+
+</script>
+
 </body>
 </html>
