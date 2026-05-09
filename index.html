@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ApexForge • v5.4</title>
+    <title>ApexForge • v5.5 Full</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif; }
-        .glass { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(24px); }
-        .neon-cyan { box-shadow: 0 0 15px #00f5ff, 0 0 30px rgba(0,245,255,0.3); }
-        .nav-active { background: white; color: black; }
+        .glass { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(24px); }
+        .neon-cyan { box-shadow: 0 0 15px #00f5ff, 0 0 30px rgba(0,245,255,0.4); }
+        .nav-active { background: white; color: black; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
         .premium-card { transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); }
         .premium-card:hover { transform: translateY(-4px); }
         .section { animation: fadeInUp 0.4s ease forwards; }
@@ -23,9 +23,9 @@
         .stat-value { font-variant-numeric: tabular-nums; }
     </style>
 </head>
-<body class="bg-[#0a0a0a] text-white">
+<body class="bg-[#0a0a0a] text-white min-h-screen">
     
-    <!-- Top Nav -->
+    <!-- Top Navigation -->
     <nav class="sticky top-0 z-50 glass border-b border-white/10">
         <div class="max-w-7xl mx-auto px-5 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3">
@@ -34,23 +34,23 @@
                 </div>
                 <div>
                     <div class="text-3xl font-bold tracking-tighter">APEXFORGE</div>
-                    <div class="text-[10px] text-white/50 -mt-1.5">v5.4 • 2032</div>
+                    <div class="text-[10px] text-white/50 -mt-1.5">v5.5 FULL • 2032</div>
                 </div>
             </div>
-            <button onclick="showSettings()" class="w-11 h-11 flex items-center justify-center rounded-2xl glass hover:bg-white/10">
+            <button onclick="showSettings()" class="w-11 h-11 flex items-center justify-center rounded-2xl glass hover:bg-white/10 transition-all">
                 <i class="fa-solid fa-cog text-xl"></i>
             </button>
         </div>
     </nav>
 
-    <div class="max-w-7xl mx-auto px-5 pt-8 pb-28">
+    <div class="max-w-7xl mx-auto px-5 pt-8 pb-32">
         
-        <!-- Hero -->
+        <!-- Hero Dashboard -->
         <div class="flex justify-between items-end mb-10">
             <div>
                 <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 text-sm mb-4">
                     <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                    <span>GOOD MORNING, ANGEL</span>
+                    GOOD MORNING, ANGEL
                 </div>
                 <h1 class="text-7xl font-bold tracking-tighter">DAY 47 <span class="text-white/40">OF 84</span></h1>
                 <div class="flex items-center gap-5 mt-4">
@@ -63,11 +63,10 @@
                 </div>
             </div>
             
-            <div class="relative w-36 h-36 flex-shrink-0">
-                <svg class="w-36 h-36 -rotate-90" viewBox="0 0 120 120">
+            <div class="relative w-40 h-40 flex-shrink-0">
+                <svg class="w-40 h-40 -rotate-90" viewBox="0 0 120 120">
                     <circle cx="60" cy="60" r="52" fill="none" stroke="#ffffff10" stroke-width="9"/>
-                    <circle cx="60" cy="60" r="52" fill="none" stroke="#00f5ff" stroke-width="9" 
-                            stroke-dasharray="326" stroke-dashoffset="82" stroke-linecap="round"/>
+                    <circle cx="60" cy="60" r="52" fill="none" stroke="#00f5ff" stroke-width="9" stroke-dasharray="326" stroke-dashoffset="82" stroke-linecap="round"/>
                 </svg>
                 <div class="absolute inset-0 flex flex-col items-center justify-center">
                     <div class="text-6xl font-bold stat-value">87</div>
@@ -89,12 +88,12 @@
                     <i class="fa-solid fa-dumbbell text-xl"></i><span>Exercise</span>
                 </button>
                 <button onclick="showAIChat()" class="nav-btn flex flex-col items-center gap-1 px-4 py-2 text-xs text-white/60" id="nav-ai">
-                    <i class="fa-solid fa-robot text-xl"></i><span>AI Chat</span>
+                    <i class="fa-solid fa-robot text-xl"></i><span>AI</span>
                 </button>
             </div>
         </div>
 
-        <!-- DASHBOARD -->
+        <!-- DASHBOARD CONTENT -->
         <div id="content-dashboard" class="tab-content">
             <div class="glass rounded-3xl p-7 mb-6">
                 <div class="flex justify-between mb-6">
@@ -104,41 +103,23 @@
                     </div>
                     <div class="px-4 py-1.5 rounded-2xl bg-emerald-500/10 text-emerald-400 text-xs font-semibold">87% DONE</div>
                 </div>
-                
                 <div class="space-y-3">
-                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-2xl">
-                        <div>06:30 — MK-677 15–20mg</div><div class="text-emerald-400 text-sm">DONE</div>
-                    </div>
-                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-2xl">
-                        <div>06:45 — Morning Shake + Core Work</div><div class="text-emerald-400 text-sm">DONE</div>
-                    </div>
-                    <div class="flex justify-between items-center p-4 bg-[#00f5ff]/10 border border-[#00f5ff]/40 rounded-2xl">
-                        <div>08:00 — Test E + NPP (Mon/Thu)</div><div class="text-[#00f5ff] text-sm font-semibold">NOW</div>
-                    </div>
-                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-2xl">
-                        <div>12:00 — Lunch + 50g Protein</div><div class="text-white/40 text-sm">UPCOMING</div>
-                    </div>
-                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-2xl">
-                        <div>17:30 — Training Session</div><div class="text-white/40 text-sm">UPCOMING</div>
-                    </div>
+                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-2xl"><div>06:30 — MK-677 15–20mg</div><div class="text-emerald-400 text-sm">DONE</div></div>
+                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-2xl"><div>06:45 — Morning Shake + Core Work</div><div class="text-emerald-400 text-sm">DONE</div></div>
+                    <div class="flex justify-between items-center p-4 bg-[#00f5ff]/10 border border-[#00f5ff]/40 rounded-2xl"><div>08:00 — Test E + NPP</div><div class="text-[#00f5ff] text-sm font-semibold">NOW</div></div>
+                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-2xl"><div>12:00 — Lunch + 50g Protein</div><div class="text-white/40 text-sm">UPCOMING</div></div>
+                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-2xl"><div>17:30 — Training Session</div><div class="text-white/40 text-sm">UPCOMING</div></div>
+                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-2xl"><div>20:00 — TB-500 Injection</div><div class="text-white/40 text-sm">UPCOMING</div></div>
                 </div>
             </div>
 
             <div class="grid grid-cols-2 gap-4 mb-6">
-                <div class="glass rounded-3xl p-6">
-                    <div class="text-sm text-white/50">ENERGY SCORE</div>
-                    <div class="text-6xl font-semibold stat-value mt-1">87</div>
-                    <div class="text-emerald-400 text-sm">+12 from yesterday</div>
-                </div>
-                <div class="glass rounded-3xl p-6">
-                    <div class="text-sm text-white/50">RECOVERY</div>
-                    <div class="text-6xl font-semibold stat-value mt-1">92</div>
-                    <div class="text-emerald-400 text-sm">Excellent</div>
-                </div>
+                <div class="glass rounded-3xl p-6"><div class="text-sm text-white/50">ENERGY SCORE</div><div class="text-6xl font-bold stat-value mt-1">87</div><div class="text-emerald-400 text-sm">+12 from yesterday</div></div>
+                <div class="glass rounded-3xl p-6"><div class="text-sm text-white/50">RECOVERY</div><div class="text-6xl font-bold stat-value mt-1">92</div><div class="text-emerald-400 text-sm">Excellent</div></div>
             </div>
         </div>
 
-        <!-- CALENDAR -->
+        <!-- CALENDAR CONTENT -->
         <div id="content-calendar" class="tab-content hidden">
             <div class="glass rounded-3xl p-7">
                 <div class="flex justify-between items-center mb-6">
@@ -151,7 +132,6 @@
                         <button onclick="nextMonth()" class="w-10 h-10 glass rounded-2xl flex items-center justify-center"><i class="fa-solid fa-chevron-right"></i></button>
                     </div>
                 </div>
-                
                 <div class="grid grid-cols-7 gap-1 text-center text-xs mb-2 text-white/40">
                     <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
                 </div>
@@ -159,36 +139,28 @@
             </div>
         </div>
 
-        <!-- EXERCISE -->
+        <!-- EXERCISE CONTENT -->
         <div id="content-exercise" class="tab-content hidden">
             <div class="mb-6">
                 <div class="text-sm text-white/50">CURRENT PHASE: OVULATORY</div>
-                <div class="text-3xl font-semibold">Recommended for You</div>
+                <div class="text-3xl font-semibold">Recommended Workouts</div>
             </div>
-            
             <div class="space-y-4">
                 <div onclick="showExerciseDetail(0)" class="premium-card glass p-6 rounded-3xl flex justify-between items-center cursor-pointer">
-                    <div>
-                        <div class="font-semibold text-xl">High-Intensity Strength</div>
-                        <div class="text-white/50">45 min • Intermediate • 5 exercises</div>
-                    </div>
+                    <div><div class="font-semibold text-xl">High-Intensity Strength</div><div class="text-white/50">45 min • Intermediate</div></div>
                     <div class="text-4xl">🏋️</div>
                 </div>
-                
                 <div onclick="showExerciseDetail(1)" class="premium-card glass p-6 rounded-3xl flex justify-between items-center cursor-pointer">
-                    <div>
-                        <div class="font-semibold text-xl">Mobility Flow</div>
-                        <div class="text-white/50">25 min • All Levels • 8 exercises</div>
-                    </div>
+                    <div><div class="font-semibold text-xl">Mobility Flow</div><div class="text-white/50">25 min • All Levels</div></div>
                     <div class="text-4xl">🧘</div>
                 </div>
-                
                 <div onclick="showExerciseDetail(2)" class="premium-card glass p-6 rounded-3xl flex justify-between items-center cursor-pointer">
-                    <div>
-                        <div class="font-semibold text-xl">Power Endurance</div>
-                        <div class="text-white/50">40 min • Advanced • 6 exercises</div>
-                    </div>
+                    <div><div class="font-semibold text-xl">Power Endurance</div><div class="text-white/50">40 min • Advanced</div></div>
                     <div class="text-4xl">⚡</div>
+                </div>
+                <div onclick="showExerciseDetail(3)" class="premium-card glass p-6 rounded-3xl flex justify-between items-center cursor-pointer">
+                    <div><div class="font-semibold text-xl">Recovery Breathwork</div><div class="text-white/50">15 min • All Levels</div></div>
+                    <div class="text-4xl">🧘‍♀️</div>
                 </div>
             </div>
         </div>
@@ -199,8 +171,14 @@
         <i class="fa-solid fa-plus"></i>
     </button>
 
-    <!-- Modals -->
-    <!-- Start Modal -->
+    <button onclick="showAIChat()" class="fixed bottom-24 right-24 z-50 w-14 h-14 rounded-3xl bg-gradient-to-br from-[#00f5ff] to-[#ff00aa] flex items-center justify-center shadow-2xl text-black font-bold text-xl">
+        AI
+    </button>
+
+    <!-- Modals will continue in the next part -->
+
+NEXT
+        <!-- START FLOW MODAL -->
     <div id="start-modal" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-6" onclick="hideStartModal()">
         <div onclick="event.stopImmediatePropagation()" class="glass-strong rounded-3xl w-full max-w-md p-8">
             <div id="start-step-1">
@@ -221,6 +199,10 @@
                         <div class="text-3xl">📋</div>
                         <div><div class="font-semibold">Training Program</div><div class="text-sm text-white/50">Follow a structured plan</div></div>
                     </div>
+                    <div onclick="selectStartType('Daily Routine')" class="p-5 rounded-2xl border border-white/10 flex gap-4 cursor-pointer hover:border-white/30">
+                        <div class="text-3xl">⚡</div>
+                        <div><div class="font-semibold">Daily Routine</div><div class="text-sm text-white/50">Start a new habit</div></div>
+                    </div>
                 </div>
             </div>
             
@@ -229,7 +211,6 @@
                     <div class="text-6xl mb-4">🔥</div>
                     <div class="text-3xl font-semibold">Starting <span id="start-type-name" class="text-[#00f5ff]"></span></div>
                 </div>
-                
                 <div class="mb-8">
                     <div class="flex justify-between text-sm mb-2">
                         <div>Duration</div>
@@ -237,13 +218,12 @@
                     </div>
                     <input type="range" id="duration" min="7" max="84" value="28" class="w-full accent-[#00f5ff]" oninput="updateDuration()">
                 </div>
-                
                 <button onclick="confirmStart()" class="w-full py-4 rounded-3xl bg-white text-black font-semibold text-lg">BEGIN →</button>
             </div>
         </div>
     </div>
 
-    <!-- AI Chat Modal -->
+    <!-- AI CHAT MODAL -->
     <div id="ai-modal" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-end justify-center p-6" onclick="hideAIChat()">
         <div onclick="event.stopImmediatePropagation()" class="glass-strong rounded-3xl w-full max-w-md h-[70vh] flex flex-col">
             <div class="p-5 flex justify-between items-center border-b border-white/10">
@@ -270,7 +250,7 @@
         </div>
     </div>
 
-    <!-- Exercise Detail Modal -->
+    <!-- EXERCISE DETAIL MODAL -->
     <div id="exercise-modal" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-6" onclick="hideExerciseModal()">
         <div onclick="event.stopImmediatePropagation()" class="glass-strong rounded-3xl w-full max-w-md p-8">
             <div id="exercise-content"></div>
@@ -278,12 +258,48 @@
         </div>
     </div>
 
-    <script>
+    <!-- SETTINGS MODAL -->
+    <div id="settings-modal" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-6" onclick="hideSettings()">
+        <div onclick="event.stopImmediatePropagation()" class="glass-strong rounded-3xl w-full max-w-md p-8">
+            <div class="flex justify-between items-center mb-8">
+                <div class="text-3xl font-semibold">Settings</div>
+                <button onclick="hideSettings()"><i class="fa-solid fa-times text-xl"></i></button>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="flex items-center justify-between py-3 border-b border-white/10">
+                    <div>Theme & Appearance</div>
+                    <div class="text-white/40">→</div>
+                </div>
+                <div class="flex items-center justify-between py-3 border-b border-white/10">
+                    <div>AI Preferences</div>
+                    <div class="text-white/40">→</div>
+                </div>
+                <div class="flex items-center justify-between py-3 border-b border-white/10">
+                    <div>Notification Settings</div>
+                    <div class="text-white/40">→</div>
+                </div>
+                <div class="flex items-center justify-between py-3 border-b border-white/10">
+                    <div>Data Export</div>
+                    <div class="text-white/40">→</div>
+                </div>
+                <div class="flex items-center justify-between py-3">
+                    <div>Privacy & Security</div>
+                    <div class="text-white/40">→</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+NEXT
+        <script>
+        // ==================== APEXFORGE v5.5 FULL ====================
+        
         function initialize() {
             document.getElementById('content-dashboard').classList.remove('hidden');
             document.getElementById('nav-dashboard').classList.add('nav-active');
             renderCalendar();
-            console.log('%c[ApexForge v5.4] Rich version loaded', 'color:#00f5ff');
+            console.log('%c[ApexForge v5.5 Full] Loaded successfully', 'color:#00f5ff');
         }
         
         let currentMonth = new Date();
@@ -297,14 +313,21 @@
             const firstDay = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
             
-            for (let i = 0; i < firstDay; i++) grid.innerHTML += `<div class="h-11"></div>`;
+            for (let i = 0; i < firstDay; i++) {
+                grid.innerHTML += `<div class="h-11"></div>`;
+            }
             
             for (let day = 1; day <= daysInMonth; day++) {
                 const isToday = day === 47;
                 const phase = day <= 5 ? 'Menstrual' : day <= 13 ? 'Follicular' : day <= 16 ? 'Ovulatory' : 'Luteal';
+                const color = day <= 5 ? 'rose' : day <= 13 ? 'emerald' : day <= 16 ? 'amber' : 'violet';
+                
                 grid.innerHTML += `
                     <div onclick="selectDay(${day})" class="h-11 flex items-center justify-center rounded-xl text-sm font-medium cursor-pointer ${isToday ? 'bg-[#00f5ff] text-black' : 'hover:bg-white/10'}">
-                        <div class="text-center"><div>${day}</div><div class="text-[8px] opacity-60">${phase.slice(0,3)}</div></div>
+                        <div class="text-center">
+                            <div>${day}</div>
+                            <div class="text-[8px] text-${color}-400">${phase.slice(0,3)}</div>
+                        </div>
                     </div>
                 `;
             }
@@ -312,42 +335,61 @@
         
         function selectDay(day) {
             const phase = day <= 5 ? 'Menstrual' : day <= 13 ? 'Follicular' : day <= 16 ? 'Ovulatory' : 'Luteal';
-            alert(`Day ${day} — ${phase} Phase\n\nEnergy: High\nRecommended: Heavy lifts + social activities`);
+            alert(`Day ${day} — ${phase} Phase\n\nEnergy: High\nRecommended: Heavy lifts + social activities\nSleep target: 8-9 hours`);
         }
         
-        function prevMonth() { currentMonth.setMonth(currentMonth.getMonth() - 1); renderCalendar(); }
-        function nextMonth() { currentMonth.setMonth(currentMonth.getMonth() + 1); renderCalendar(); }
+        function prevMonth() {
+            currentMonth.setMonth(currentMonth.getMonth() - 1);
+            renderCalendar();
+        }
+        
+        function nextMonth() {
+            currentMonth.setMonth(currentMonth.getMonth() + 1);
+            renderCalendar();
+        }
         
         function switchTab(tab) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.getElementById(`content-${tab}`).classList.remove('hidden');
+            
             document.querySelectorAll('[id^="nav-"]').forEach(el => el.classList.remove('nav-active'));
             document.getElementById(`nav-${tab}`).classList.add('nav-active');
         }
         
+        // START FLOW
         let startType = '';
+        
         function showStartModal() {
             document.getElementById('start-modal').classList.remove('hidden');
             document.getElementById('start-step-1').classList.remove('hidden');
             document.getElementById('start-step-2').classList.add('hidden');
         }
-        function hideStartModal() { document.getElementById('start-modal').classList.add('hidden'); }
+        
+        function hideStartModal() {
+            document.getElementById('start-modal').classList.add('hidden');
+        }
+        
         function selectStartType(type) {
             startType = type;
             document.getElementById('start-step-1').classList.add('hidden');
             document.getElementById('start-step-2').classList.remove('hidden');
             document.getElementById('start-type-name').innerHTML = type;
         }
+        
         function updateDuration() {
-            document.getElementById('duration-text').innerHTML = document.getElementById('duration').value + ' days';
+            const val = document.getElementById('duration').value;
+            document.getElementById('duration-text').innerHTML = val + ' days';
         }
+        
         function confirmStart() {
             const duration = document.getElementById('duration').value;
             hideStartModal();
-            alert(`🚀 ${startType} started for ${duration} days!\n\nLive tracking activated. Your dashboard will now update in real-time.`);
+            alert(`🚀 ${startType} started for ${duration} days!\n\nLive tracking activated.\nYour dashboard will now update in real-time.`);
         }
         
+        // AI CHAT
         let aiHistory = [];
+        
         function showAIChat() {
             document.getElementById('ai-modal').classList.remove('hidden');
             const chat = document.getElementById('ai-chat');
@@ -359,43 +401,70 @@
                 aiHistory.forEach(msg => addAIMessage(msg.role, msg.content, true));
             }
         }
-        function hideAIChat() { document.getElementById('ai-modal').classList.add('hidden'); }
-        function addAIMessage(role, content, skip = false) {
+        
+        function hideAIChat() {
+            document.getElementById('ai-modal').classList.add('hidden');
+        }
+        
+        function addAIMessage(role, content, skipSave = false) {
             const chat = document.getElementById('ai-chat');
             const div = document.createElement('div');
             div.className = `flex ${role === 'user' ? 'justify-end' : ''}`;
-            div.innerHTML = `<div class="max-w-[80%] px-4 py-3 rounded-3xl text-sm ${role === 'user' ? 'bg-[#00f5ff] text-black' : 'bg-white/10'}">${content}</div>`;
+            div.innerHTML = `
+                <div class="max-w-[80%] px-4 py-3 rounded-3xl text-sm ${role === 'user' ? 'bg-[#00f5ff] text-black' : 'bg-white/10'}">
+                    ${content}
+                </div>
+            `;
             chat.appendChild(div);
             chat.scrollTop = chat.scrollHeight;
-            if (!skip) aiHistory.push({ role, content });
+            
+            if (!skipSave) aiHistory.push({ role, content });
         }
+        
         function sendAI() {
             const input = document.getElementById('ai-input');
             const value = input.value.trim();
             if (!value) return;
+            
             addAIMessage('user', value);
             input.value = '';
             
             setTimeout(() => {
                 let reply = "Got it. How does that feel today?";
                 const lower = value.toLowerCase();
-                if (lower.includes('tired') || lower.includes('energy')) reply = "You're in luteal phase — energy naturally drops. Reduce training intensity by 20% and prioritize sleep tonight.";
-                else if (lower.includes('training') || lower.includes('workout')) reply = "Perfect timing! Ovulatory phase is ideal for heavy lifts. Focus on compound movements today.";
-                else if (lower.includes('mood') || lower.includes('anxious')) reply = "Hormonal shifts can amplify emotions right now. A 10-minute walk + magnesium often helps significantly.";
-                else if (lower.includes('hungry') || lower.includes('craving')) reply = "Cravings are completely normal in this phase. Protein + healthy fats work very well to reduce them.";
+                
+                if (lower.includes('tired') || lower.includes('energy')) {
+                    reply = "You're in luteal phase — energy naturally drops. Reduce training intensity by 20% and prioritize sleep tonight.";
+                } else if (lower.includes('training') || lower.includes('workout')) {
+                    reply = "Perfect timing! Ovulatory phase is ideal for heavy lifts. Focus on compound movements today.";
+                } else if (lower.includes('mood') || lower.includes('anxious')) {
+                    reply = "Hormonal shifts can amplify emotions right now. A 10-minute walk + magnesium often helps significantly.";
+                } else if (lower.includes('hungry') || lower.includes('craving')) {
+                    reply = "Cravings are completely normal in this phase. Protein + healthy fats work very well to reduce them.";
+                } else if (lower.includes('sleep')) {
+                    reply = "Sleep quality is crucial right now. Aim for 8-9 hours and avoid screens 1 hour before bed.";
+                } else if (lower.includes('stress')) {
+                    reply = "Stress can disrupt your cycle. Try 5 minutes of deep breathing or a short walk outside.";
+                } else if (lower.includes('pain') || lower.includes('cramps')) {
+                    reply = "Cramps are common in menstrual phase. Heat therapy + magnesium + gentle movement usually helps.";
+                }
+                
                 addAIMessage('assistant', reply);
             }, 850);
         }
         
+        // EXERCISE DETAIL
         function showExerciseDetail(index) {
             const exercises = [
-                { title: "High-Intensity Strength", duration: "45 min", level: "Intermediate", desc: "Focus on compound movements. Great for building strength during ovulatory phase." },
-                { title: "Mobility Flow", duration: "25 min", level: "All Levels", desc: "Full body mobility and stretching routine. Perfect for recovery days." },
-                { title: "Power Endurance", duration: "40 min", level: "Advanced", desc: "High-intensity circuit training. Excellent for building work capacity." }
+                { title: "High-Intensity Strength", duration: "45 min", level: "Intermediate", desc: "Focus on compound movements like squats, deadlifts, and bench press. Great for building strength during ovulatory phase." },
+                { title: "Mobility Flow", duration: "25 min", level: "All Levels", desc: "Full body mobility and stretching routine. Perfect for recovery days and improving range of motion." },
+                { title: "Power Endurance", duration: "40 min", level: "Advanced", desc: "High-intensity circuit training. Excellent for building work capacity and mental toughness." },
+                { title: "Recovery Breathwork", duration: "15 min", level: "All Levels", desc: "Guided breathing exercises to reduce stress and improve recovery. Use this on rest days." }
             ];
+            
             const ex = exercises[index];
             document.getElementById('exercise-content').innerHTML = `
-                <div class="text-4xl mb-4">${index === 0 ? '🏋️' : index === 1 ? '🧘' : '⚡'}</div>
+                <div class="text-4xl mb-4">${index === 0 ? '🏋️' : index === 1 ? '🧘' : index === 2 ? '⚡' : '🧘‍♀️'}</div>
                 <div class="text-3xl font-semibold mb-2">${ex.title}</div>
                 <div class="text-white/50 mb-6">${ex.duration} • ${ex.level}</div>
                 <div class="text-sm leading-relaxed">${ex.desc}</div>
@@ -403,16 +472,25 @@
             `;
             document.getElementById('exercise-modal').classList.remove('hidden');
         }
-        function hideExerciseModal() { document.getElementById('exercise-modal').classList.add('hidden'); }
+        
+        function hideExerciseModal() {
+            document.getElementById('exercise-modal').classList.add('hidden');
+        }
         
         function startWorkout(title) {
             alert(`Starting: ${title}\n\nTimer started. Good luck!`);
         }
         
+        // SETTINGS
         function showSettings() {
-            alert("Settings Panel\n\n• Theme & Appearance\n• AI Preferences\n• Notification Settings\n• Data Export\n• Privacy Controls\n\n(Full settings coming in v5.5)");
+            document.getElementById('settings-modal').classList.remove('hidden');
         }
         
+        function hideSettings() {
+            document.getElementById('settings-modal').classList.add('hidden');
+        }
+        
+        // INITIALIZE
         window.onload = initialize;
     </script>
 </body>
