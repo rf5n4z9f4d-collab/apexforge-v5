@@ -3,330 +3,252 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Apex OS PRO</title>
+<title>Apex Gym Tracker • Rebuilt Core</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
+:root{
+  --bg:#071822;
+  --card:rgba(255,255,255,0.06);
+  --accent:#10b981;
+  --text:#e5e7eb;
+}
+
 body{
-  background:#071822;
-  color:white;
+  background:var(--bg);
+  color:var(--text);
   font-family: Inter, sans-serif;
 }
 
+.glass{
+  background:var(--card);
+  backdrop-filter: blur(14px);
+  border:1px solid rgba(255,255,255,0.06);
+}
+
+.btn{
+  transition:.2s;
+}
+.btn:active{ transform:scale(.96); }
+
+.tab{ display:none; }
+.tab.active{ display:block; }
+
 .card{
-  background:rgba(255,255,255,0.06);
-  border-radius:18px;
   padding:14px;
-  margin-bottom:10px;
-  backdrop-filter: blur(10px);
+  border-radius:20px;
 }
 
-.btn:active{ transform:scale(.97); }
-
-nav button{
-  font-size:12px;
-}
-
-input,select{
+input,select,textarea{
   outline:none;
 }
+
 </style>
 </head>
 
-<body>
+<body class="pb-24">
 
-<div id="app"></div>
+<!-- HEADER -->
+<header class="max-w-md mx-auto p-4 flex justify-between items-center">
+  <div>
+    <div class="text-2xl font-bold">APEX</div>
+    <div class="text-xs text-emerald-400" id="cycleInfo">Week 1 • Day 1</div>
+  </div>
+
+  <button onclick="switchTab(2)" class="glass px-4 py-2 rounded-full text-sm btn">
+    Settings
+  </button>
+</header>
+
+<!-- MAIN -->
+<main class="max-w-md mx-auto px-4 space-y-4">
+
+<!-- PROGRESS -->
+<div class="glass card text-center">
+  <div class="text-5xl font-bold text-emerald-400" id="progress">0%</div>
+  <div class="text-xs text-gray-400">Daily Completion</div>
+</div>
+
+<!-- SCHEDULE -->
+<div class="glass card">
+  <div class="flex justify-between mb-2">
+    <h2 class="font-semibold">Daily Schedule</h2>
+  </div>
+  <div id="schedule"></div>
+</div>
+
+<!-- MACROS -->
+<div class="tab" id="tab-1">
+  <div class="glass card space-y-2">
+    <h2 class="font-semibold">Macros</h2>
+
+    <input id="weight" class="w-full p-2 rounded bg-white/10" placeholder="Weight (lbs)" value="180"/>
+    <select id="goal" class="w-full p-2 rounded bg-white/10">
+      <option>Cut</option>
+      <option selected>Maintain</option>
+      <option>Bulk</option>
+    </select>
+
+    <button onclick="calcMacros()" class="w-full bg-emerald-500 text-black py-2 rounded-xl btn">
+      Calculate
+    </button>
+
+    <div class="text-sm mt-2" id="macroOut"></div>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div class="tab" id="tab-2">
+  <div class="glass card space-y-3">
+    <h2 class="font-semibold">Settings</h2>
+
+    <input id="cycleStart" type="date" class="w-full p-2 rounded bg-white/10"/>
+
+    <button onclick="saveCycle()" class="w-full bg-emerald-500 text-black py-2 rounded-xl btn">
+      Save Cycle
+    </button>
+
+    <button onclick="resetData()" class="w-full bg-red-500 py-2 rounded-xl btn">
+      Reset Data
+    </button>
+  </div>
+</div>
+
+</main>
+
+<!-- TAB BAR -->
+<footer class="fixed bottom-0 left-0 right-0 max-w-md mx-auto glass flex justify-around p-3">
+  <button onclick="switchTab(0)">Home</button>
+  <button onclick="switchTab(1)">Macros</button>
+  <button onclick="switchTab(2)">Settings</button>
+</footer>
 
 <script>
 
 /* =========================
-   1. REACTIVE STORE (PRO LEVEL)
+   STATE SYSTEM (CLEAN CORE)
 ========================= */
 
-const Store = {
-  state: {
-    cycleStart: new Date().toISOString().slice(0,10),
-    schedule: [
-      {id:1,time:"6:30 AM",name:"Morning Cardio",done:false},
-      {id:2,time:"8:00 AM",name:"Protein Meal",done:false},
-      {id:3,time:"6:00 PM",name:"Gym Session",done:false}
-    ],
-    macros: { weight:180, goal:"Maintain" }
-  },
+const STORE_KEY = "apex_v_clean";
 
-  listeners: [],
-
-  get(){ return this.state; },
-
-  set(fn){
-    this.state = fn(this.state);
-    save();
-    this.listeners.forEach(l=>l());
-  },
-
-  subscribe(fn){
-    this.listeners.push(fn);
-  }
+const defaultState = {
+  cycleStart: new Date().toISOString().slice(0,10),
+  schedule: [
+    {id:1,time:"6:30 AM",name:"Morning Cardio",done:false},
+    {id:2,time:"7:30 AM",name:"Meal Prep",done:false},
+    {id:3,time:"6:00 PM",name:"Gym Session",done:false}
+  ]
 };
 
-const KEY = "apex_os_pro_v1";
+let state = load();
 
 function save(){
-  localStorage.setItem(KEY, JSON.stringify(Store.state));
+  localStorage.setItem(STORE_KEY, JSON.stringify(state));
 }
 
 function load(){
-  const d = localStorage.getItem(KEY);
-  if(d) Store.state = JSON.parse(d);
+  return JSON.parse(localStorage.getItem(STORE_KEY)) || defaultState;
 }
-load();
 
+function update(fn){
+  state = fn(state);
+  save();
+  render();
+}
 
 /* =========================
-   2. COMPONENT SYSTEM v2
-========================= */
-
-function h(html){
-  const d = document.createElement("div");
-  d.innerHTML = html.trim();
-  return d.firstChild;
-}
-
-function Card(content){
-  return h(`<div class="card">${content}</div>`);
-}
-
-function Button(text, onClick){
-  const b = h(`<button class="bg-emerald-500 text-black px-4 py-2 rounded-xl">${text}</button>`);
-  b.onclick = onClick;
-  return b;
-}
-
-
-/* =========================
-   3. ROUTER SYSTEM (REAL UPGRADE)
-========================= */
-
-const Router = {
-  routes: {},
-
-  add(path, view){
-    this.routes[path] = view;
-  },
-
-  get(){
-    const hash = location.hash.replace("#","");
-    return this.routes[hash || "home"] || this.routes.home;
-  },
-
-  go(path){
-    location.hash = path;
-  }
-};
-
-
-/* =========================
-   4. BUSINESS LOGIC HELPERS
-========================= */
-
-function progress(){
-  const s = Store.get();
-  const done = s.schedule.filter(x=>x.done).length;
-  return Math.round((done/s.schedule.length)*100);
-}
-
-function cycleInfo(){
-  const s = Store.get();
-  const start = new Date(s.cycleStart);
-  const now = new Date();
-
-  const days = Math.floor((now-start)/86400000)+1;
-  return `Week ${Math.ceil(days/7)} • Day ${days}`;
-}
-
-
-/* =========================
-   5. VIEWS (CLEAN COMPONENTS)
-========================= */
-
-function Home(){
-  const s = Store.get();
-  const wrap = document.createElement("div");
-
-  wrap.appendChild(Card(`
-    <div class="text-4xl text-emerald-400 font-bold">${progress()}%</div>
-    <div class="text-xs opacity-60">Daily Progress</div>
-    <div class="text-xs mt-1 opacity-40">${cycleInfo()}</div>
-  `));
-
-  s.schedule.forEach((t,i)=>{
-    const el = h(`
-      <div class="card flex justify-between items-center">
-        <div>
-          <div class="text-sm">${t.time}</div>
-          <div class="text-xs opacity-70">${t.name}</div>
-        </div>
-        <input type="checkbox" ${t.done?"checked":""}/>
-      </div>
-    `);
-
-    el.querySelector("input").onchange = ()=>{
-      Store.set(s=>{
-        s.schedule[i].done = !s.schedule[i].done;
-        return s;
-      });
-    };
-
-    wrap.appendChild(el);
-  });
-
-  return wrap;
-}
-
-
-/* =========================
-   MACROS VIEW
-========================= */
-
-function Macros(){
-  const s = Store.get();
-
-  const wrap = document.createElement("div");
-
-  wrap.appendChild(Card(`
-    <div class="font-semibold mb-2">Macro Engine</div>
-
-    <input id="w" class="w-full p-2 rounded bg-white/10 mb-2" value="${s.macros.weight}" placeholder="Weight"/>
-
-    <select id="g" class="w-full p-2 rounded bg-white/10 mb-2">
-      <option ${s.macros.goal==="Cut"?"selected":""}>Cut</option>
-      <option ${s.macros.goal==="Maintain"?"selected":""}>Maintain</option>
-      <option ${s.macros.goal==="Bulk"?"selected":""}>Bulk</option>
-    </select>
-
-    <button id="calc" class="w-full bg-emerald-500 text-black py-2 rounded-xl">
-      Calculate
-    </button>
-
-    <div id="out" class="mt-2 text-sm"></div>
-  `));
-
-  setTimeout(()=>{
-    document.getElementById("calc").onclick = ()=>{
-      const w = +document.getElementById("w").value || 180;
-      const g = document.getElementById("g").value;
-
-      Store.set(s=>{
-        s.macros.weight = w;
-        s.macros.goal = g;
-        return s;
-      });
-
-      let cals = w*14;
-      if(g==="Cut") cals*=0.85;
-      if(g==="Bulk") cals*=1.15;
-
-      document.getElementById("out").innerHTML =
-        `Calories: ${Math.round(cals)}<br>Protein: ${Math.round(w*1.8)}g`;
-    };
-  });
-
-  return wrap;
-}
-
-
-/* =========================
-   SETTINGS VIEW
-========================= */
-
-function Settings(){
-  const s = Store.get();
-
-  const wrap = document.createElement("div");
-
-  const input = h(`<input type="date" class="w-full p-2 rounded bg-white/10 mb-2">`);
-  input.value = s.cycleStart;
-
-  const saveBtn = Button("Save Cycle", ()=>{
-    Store.set(s=>{
-      s.cycleStart = input.value;
-      return s;
-    });
-  });
-
-  const resetBtn = Button("Reset App", ()=>{
-    if(confirm("Reset all data?")){
-      localStorage.clear();
-      location.reload();
-    }
-  });
-
-  wrap.appendChild(Card("<div class='font-semibold mb-2'>Settings</div>"));
-  wrap.appendChild(input);
-  wrap.appendChild(saveBtn);
-  wrap.appendChild(resetBtn);
-
-  return wrap;
-}
-
-
-/* =========================
-   6. APP RENDER ENGINE
-========================= */
-
-function App(){
-  const root = document.createElement("div");
-  root.className = "max-w-md mx-auto p-4";
-
-  const view = Router.get();
-  root.appendChild(view());
-
-  const nav = document.createElement("nav");
-  nav.className = "fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-black/40 backdrop-blur flex justify-around p-3";
-
-  [
-    ["Home","home"],
-    ["Macros","macros"],
-    ["Settings","settings"]
-  ].forEach(([label,path])=>{
-    const b = document.createElement("button");
-    b.innerText = label;
-    b.onclick = ()=>Router.go(path);
-    nav.appendChild(b);
-  });
-
-  root.appendChild(nav);
-
-  return root;
-}
-
-
-/* =========================
-   7. RENDER SYSTEM (REACTIVE)
+   UI LOGIC
 ========================= */
 
 function render(){
-  const app = document.getElementById("app");
-  app.innerHTML = "";
-  app.appendChild(App());
+
+  // cycle info
+  const start = new Date(state.cycleStart);
+  const today = new Date();
+  const days = Math.floor((today - start)/86400000)+1;
+  document.getElementById("cycleInfo").innerText =
+    `Week ${Math.ceil(days/7)} • Day ${days}`;
+
+  // schedule
+  const el = document.getElementById("schedule");
+  el.innerHTML = "";
+
+  let done = 0;
+
+  state.schedule.forEach((t,i)=>{
+    if(t.done) done++;
+
+    el.innerHTML += `
+      <div class="flex justify-between items-center p-2 rounded-xl bg-white/5 mb-2">
+        <div>
+          <div class="text-sm font-medium">${t.time}</div>
+          <div class="text-xs text-gray-400">${t.name}</div>
+        </div>
+
+        <input type="checkbox" ${t.done?"checked":""}
+        onchange="toggle(${i})"/>
+      </div>
+    `;
+  });
+
+  document.getElementById("progress").innerText =
+    Math.round((done/state.schedule.length)*100) + "%";
 }
 
-
 /* =========================
-   8. BOOTSTRAP
+   ACTIONS
 ========================= */
 
-Router.add("home", Home);
-Router.add("macros", Macros);
-Router.add("settings", Settings);
+function toggle(i){
+  update(s=>{
+    s.schedule[i].done = !s.schedule[i].done;
+    return s;
+  });
+}
 
-Store.subscribe(render);
+function calcMacros(){
+  const w = +document.getElementById("weight").value || 180;
+  const goal = document.getElementById("goal").value;
 
+  let cals = w * 14;
+
+  if(goal==="Cut") cals *= .85;
+  if(goal==="Bulk") cals *= 1.15;
+
+  document.getElementById("macroOut").innerHTML =
+    `Calories: ${Math.round(cals)}<br>
+     Protein: ${Math.round(w*1.8)}g`;
+}
+
+function saveCycle(){
+  update(s=>{
+    s.cycleStart = document.getElementById("cycleStart").value;
+    return s;
+  });
+}
+
+function resetData(){
+  if(confirm("Reset everything?")){
+    localStorage.removeItem(STORE_KEY);
+    location.reload();
+  }
+}
+
+/* =========================
+   TABS
+========================= */
+
+function switchTab(i){
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  document.querySelectorAll(".tab")[i].classList.add("active");
+}
+
+/* INIT */
 render();
-
-window.onhashchange = render;
+switchTab(0);
 
 </script>
+
 </body>
 </html>
