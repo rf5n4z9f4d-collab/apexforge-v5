@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ApexForge • v5.6 Expanded</title>
+    <title>ApexForge • v5.7 Complete</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -29,7 +29,7 @@
                 </div>
                 <div>
                     <div class="text-3xl font-bold tracking-tighter">APEXFORGE</div>
-                    <div class="text-[10px] text-white/50 -mt-1.5">v5.6 EXPANDED • 2032</div>
+                    <div class="text-[10px] text-white/50 -mt-1.5">v5.7 COMPLETE • 2032</div>
                 </div>
             </div>
             <button onclick="showSettings()" class="w-11 h-11 flex items-center justify-center rounded-2xl glass hover:bg-white/10 transition-all">
@@ -40,7 +40,7 @@
 
     <div class="max-w-7xl mx-auto px-5 pt-8 pb-32">
         
-        <!-- Hero -->
+        <!-- Hero Dashboard -->
         <div class="flex justify-between items-end mb-10">
             <div>
                 <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 text-sm mb-4">
@@ -101,7 +101,8 @@
             </div>
         </div>
 
-        <!-- DASHBOARD -->
+NEXT 
+                <!-- DASHBOARD CONTENT -->
         <div id="content-dashboard" class="tab-content">
             <div class="glass rounded-3xl p-7 mb-6">
                 <div class="flex justify-between mb-6">
@@ -141,7 +142,7 @@
             </div>
         </div>
 
-        <!-- CALENDAR -->
+        <!-- CALENDAR CONTENT -->
         <div id="content-calendar" class="tab-content hidden">
             <div class="glass rounded-3xl p-7">
                 <div class="flex justify-between items-center mb-6">
@@ -161,7 +162,7 @@
             </div>
         </div>
 
-        <!-- EXERCISE -->
+        <!-- EXERCISE CONTENT -->
         <div id="content-exercise" class="tab-content hidden">
             <div class="mb-6">
                 <div class="text-sm text-white/50">CURRENT PHASE: OVULATORY</div>
@@ -196,17 +197,7 @@
         </div>
     </div>
 
-    <!-- Floating Buttons -->
-    <button onclick="showStartModal()" class="fixed bottom-24 right-6 z-50 w-14 h-14 rounded-3xl bg-white text-black flex items-center justify-center shadow-2xl neon-cyan text-3xl">
-        <i class="fa-solid fa-plus"></i>
-    </button>
-
-    <button onclick="showAIChat()" class="fixed bottom-24 right-24 z-50 w-14 h-14 rounded-3xl bg-gradient-to-br from-[#00f5ff] to-[#ff00aa] flex items-center justify-center shadow-2xl text-black font-bold text-xl">
-        AI
-    </button>
-
-    <!-- Modals (same as before but with more options) -->
-    <!-- START MODAL -->
+NEXT    <!-- START FLOW MODAL -->
     <div id="start-modal" class="hidden fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-6" onclick="hideStartModal()">
         <div onclick="event.stopImmediatePropagation()" class="glass-strong rounded-3xl w-full max-w-md p-8">
             <div id="start-step-1">
@@ -215,10 +206,22 @@
                     <div class="text-4xl font-semibold">What do you want to start?</div>
                 </div>
                 <div class="space-y-3">
-                    <div onclick="selectStartType('New Cycle')" class="p-5 rounded-2xl border border-white/10 flex gap-4 cursor-pointer hover:border-white/30"><div class="text-3xl">🔄</div><div><div class="font-semibold">New Cycle</div><div class="text-sm text-white/50">Begin tracking your next phase</div></div></div>
-                    <div onclick="selectStartType('New Goal')" class="p-5 rounded-2xl border border-white/10 flex gap-4 cursor-pointer hover:border-white/30"><div class="text-3xl">🎯</div><div><div class="font-semibold">New Goal</div><div class="text-sm text-white/50">Set a 4–12 week objective</div></div></div>
-                    <div onclick="selectStartType('Training Program')" class="p-5 rounded-2xl border border-white/10 flex gap-4 cursor-pointer hover:border-white/30"><div class="text-3xl">📋</div><div><div class="font-semibold">Training Program</div><div class="text-sm text-white/50">Follow a structured plan</div></div></div>
-                    <div onclick="selectStartType('Daily Routine')" class="p-5 rounded-2xl border border-white/10 flex gap-4 cursor-pointer hover:border-white/30"><div class="text-3xl">⚡</div><div><div class="font-semibold">Daily Routine</div><div class="text-sm text-white/50">Start a new habit</div></div></div>
+                    <div onclick="selectStartType('New Cycle')" class="p-5 rounded-2xl border border-white/10 flex gap-4 cursor-pointer hover:border-white/30">
+                        <div class="text-3xl">🔄</div>
+                        <div><div class="font-semibold">New Cycle</div><div class="text-sm text-white/50">Begin tracking your next phase</div></div>
+                    </div>
+                    <div onclick="selectStartType('New Goal')" class="p-5 rounded-2xl border border-white/10 flex gap-4 cursor-pointer hover:border-white/30">
+                        <div class="text-3xl">🎯</div>
+                        <div><div class="font-semibold">New Goal</div><div class="text-sm text-white/50">Set a 4–12 week objective</div></div>
+                    </div>
+                    <div onclick="selectStartType('Training Program')" class="p-5 rounded-2xl border border-white/10 flex gap-4 cursor-pointer hover:border-white/30">
+                        <div class="text-3xl">📋</div>
+                        <div><div class="font-semibold">Training Program</div><div class="text-sm text-white/50">Follow a structured plan</div></div>
+                    </div>
+                    <div onclick="selectStartType('Daily Routine')" class="p-5 rounded-2xl border border-white/10 flex gap-4 cursor-pointer hover:border-white/30">
+                        <div class="text-3xl">⚡</div>
+                        <div><div class="font-semibold">Daily Routine</div><div class="text-sm text-white/50">Start a new habit</div></div>
+                    </div>
                 </div>
             </div>
             
@@ -228,7 +231,10 @@
                     <div class="text-3xl font-semibold">Starting <span id="start-type-name" class="text-[#00f5ff]"></span></div>
                 </div>
                 <div class="mb-8">
-                    <div class="flex justify-between text-sm mb-2"><div>Duration</div><div id="duration-text" class="font-semibold">28 days</div></div>
+                    <div class="flex justify-between text-sm mb-2">
+                        <div>Duration</div>
+                        <div id="duration-text" class="font-semibold">28 days</div>
+                    </div>
                     <input type="range" id="duration" min="7" max="84" value="28" class="w-full accent-[#00f5ff]" oninput="updateDuration()">
                 </div>
                 <button onclick="confirmStart()" class="w-full py-4 rounded-3xl bg-white text-black font-semibold text-lg">BEGIN →</button>
@@ -242,15 +248,22 @@
             <div class="p-5 flex justify-between items-center border-b border-white/10">
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-[#00f5ff] to-[#ff00aa]"></div>
-                    <div><div class="font-semibold">Apex AI</div><div class="text-xs text-emerald-400">Online • Always learning</div></div>
+                    <div>
+                        <div class="font-semibold">Apex AI</div>
+                        <div class="text-xs text-emerald-400">Online • Always learning</div>
+                    </div>
                 </div>
                 <button onclick="hideAIChat()"><i class="fa-solid fa-times text-xl"></i></button>
             </div>
+            
             <div id="ai-chat" class="flex-1 p-5 overflow-y-auto space-y-4 text-sm"></div>
+            
             <div class="p-4 border-t border-white/10">
                 <div class="flex gap-3">
                     <input id="ai-input" type="text" placeholder="Ask about cycle, training, mood..." class="flex-1 bg-white/10 rounded-3xl px-5 py-3 text-sm focus:outline-none" onkeypress="if(event.key==='Enter') sendAI()">
-                    <button onclick="sendAI()" class="w-12 h-12 rounded-3xl bg-white text-black flex items-center justify-center"><i class="fa-solid fa-paper-plane"></i></button>
+                    <button onclick="sendAI()" class="w-12 h-12 rounded-3xl bg-white text-black flex items-center justify-center">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -301,12 +314,15 @@
         </div>
     </div>
 
+NEXT    
     <script>
+        // ==================== APEXFORGE v5.7 COMPLETE ====================
+        
         function initialize() {
             document.getElementById('content-dashboard').classList.remove('hidden');
             document.getElementById('nav-dashboard').classList.add('nav-active');
             renderCalendar();
-            console.log('%c[ApexForge v5.6 Expanded] Loaded', 'color:#00f5ff');
+            console.log('%c[ApexForge v5.7] Loaded successfully', 'color:#00f5ff');
         }
         
         let currentMonth = new Date();
@@ -314,19 +330,26 @@
         function renderCalendar() {
             const grid = document.getElementById('calendar-grid');
             grid.innerHTML = '';
+            
             const year = currentMonth.getFullYear();
             const month = currentMonth.getMonth();
             const firstDay = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
             
-            for (let i = 0; i < firstDay; i++) grid.innerHTML += `<div class="h-11"></div>`;
+            for (let i = 0; i < firstDay; i++) {
+                grid.innerHTML += `<div class="h-11"></div>`;
+            }
             
             for (let day = 1; day <= daysInMonth; day++) {
                 const isToday = day === 47;
                 const phase = day <= 5 ? 'Menstrual' : day <= 13 ? 'Follicular' : day <= 16 ? 'Ovulatory' : 'Luteal';
+                
                 grid.innerHTML += `
                     <div onclick="selectDay(${day})" class="h-11 flex items-center justify-center rounded-xl text-sm font-medium cursor-pointer ${isToday ? 'bg-[#00f5ff] text-black' : 'hover:bg-white/10'}">
-                        <div class="text-center"><div>${day}</div><div class="text-[8px] opacity-60">${phase.slice(0,3)}</div></div>
+                        <div class="text-center">
+                            <div>${day}</div>
+                            <div class="text-[8px] opacity-60">${phase.slice(0,3)}</div>
+                        </div>
                     </div>
                 `;
             }
@@ -337,79 +360,145 @@
             alert(`Day ${day} — ${phase} Phase\n\nEnergy: High\nRecommended: Heavy lifts + social activities\nSleep target: 8-9 hours`);
         }
         
-        function prevMonth() { currentMonth.setMonth(currentMonth.getMonth() - 1); renderCalendar(); }
-        function nextMonth() { currentMonth.setMonth(currentMonth.getMonth() + 1); renderCalendar(); }
+        function prevMonth() {
+            currentMonth.setMonth(currentMonth.getMonth() - 1);
+            renderCalendar();
+        }
+        
+        function nextMonth() {
+            currentMonth.setMonth(currentMonth.getMonth() + 1);
+            renderCalendar();
+        }
         
         function switchTab(tab) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.getElementById(`content-${tab}`).classList.remove('hidden');
+            
             document.querySelectorAll('[id^="nav-"]').forEach(el => el.classList.remove('nav-active'));
             document.getElementById(`nav-${tab}`).classList.add('nav-active');
         }
         
+        // START FLOW
         let startType = '';
+        
         function showStartModal() {
             document.getElementById('start-modal').classList.remove('hidden');
             document.getElementById('start-step-1').classList.remove('hidden');
             document.getElementById('start-step-2').classList.add('hidden');
         }
-        function hideStartModal() { document.getElementById('start-modal').classList.add('hidden'); }
+        
+        function hideStartModal() {
+            document.getElementById('start-modal').classList.add('hidden');
+        }
+        
         function selectStartType(type) {
             startType = type;
             document.getElementById('start-step-1').classList.add('hidden');
             document.getElementById('start-step-2').classList.remove('hidden');
             document.getElementById('start-type-name').innerHTML = type;
         }
-        function updateDuration() { document.getElementById('duration-text').innerHTML = document.getElementById('duration').value + ' days'; }
+        
+        function updateDuration() {
+            const val = document.getElementById('duration').value;
+            document.getElementById('duration-text').innerHTML = val + ' days';
+        }
+        
         function confirmStart() {
             const duration = document.getElementById('duration').value;
             hideStartModal();
-            alert(`🚀 ${startType} started for ${duration} days!\n\nLive tracking activated.`);
+            alert(`🚀 ${startType} started for ${duration} days!\n\nLive tracking activated.\nYour dashboard will now update in real-time.`);
         }
         
+        // SETTINGS
+        function showSettings() {
+            document.getElementById('settings-modal').classList.remove('hidden');
+        }
+        
+        function hideSettings() {
+            document.getElementById('settings-modal').classList.add('hidden');
+        }
+        
+        // QUICK LOG
+        function quickLog(type) {
+            let msg = '';
+            if (type === 'symptom') msg = 'Symptom logged. Thank you for tracking.';
+            else if (type === 'meal') msg = 'Meal logged. Great job staying consistent!';
+            else if (type === 'sleep') msg = 'Sleep logged. Quality sleep is key to recovery.';
+            alert(msg);
+        }
+        
+NEXT
+                // AI CHAT
         let aiHistory = [];
+        
         function showAIChat() {
             document.getElementById('ai-modal').classList.remove('hidden');
             const chat = document.getElementById('ai-chat');
             chat.innerHTML = '';
+            
             if (aiHistory.length === 0) {
                 addAIMessage("assistant", "Hey Angel! How are you feeling today? I'm here to help with your cycle, training, recovery, or mood.");
             } else {
                 aiHistory.forEach(msg => addAIMessage(msg.role, msg.content, true));
             }
         }
-        function hideAIChat() { document.getElementById('ai-modal').classList.add('hidden'); }
-        function addAIMessage(role, content, skip = false) {
+        
+        function hideAIChat() {
+            document.getElementById('ai-modal').classList.add('hidden');
+        }
+        
+        function addAIMessage(role, content, skipSave = false) {
             const chat = document.getElementById('ai-chat');
             const div = document.createElement('div');
             div.className = `flex ${role === 'user' ? 'justify-end' : ''}`;
-            div.innerHTML = `<div class="max-w-[80%] px-4 py-3 rounded-3xl text-sm ${role === 'user' ? 'bg-[#00f5ff] text-black' : 'bg-white/10'}">${content}</div>`;
+            div.innerHTML = `
+                <div class="max-w-[80%] px-4 py-3 rounded-3xl text-sm ${role === 'user' ? 'bg-[#00f5ff] text-black' : 'bg-white/10'}">
+                    ${content}
+                </div>
+            `;
             chat.appendChild(div);
             chat.scrollTop = chat.scrollHeight;
-            if (!skip) aiHistory.push({ role, content });
+            
+            if (!skipSave) aiHistory.push({ role, content });
         }
+        
         function sendAI() {
             const input = document.getElementById('ai-input');
             const value = input.value.trim();
             if (!value) return;
+            
             addAIMessage('user', value);
             input.value = '';
             
             setTimeout(() => {
                 let reply = "Got it. How does that feel today?";
                 const lower = value.toLowerCase();
-                if (lower.includes('tired') || lower.includes('energy')) reply = "You're in luteal phase — energy naturally drops. Reduce training intensity by 20% and prioritize sleep tonight.";
-                else if (lower.includes('training') || lower.includes('workout')) reply = "Perfect timing! Ovulatory phase is ideal for heavy lifts. Focus on compound movements today.";
-                else if (lower.includes('mood') || lower.includes('anxious')) reply = "Hormonal shifts can amplify emotions right now. A 10-minute walk + magnesium often helps significantly.";
-                else if (lower.includes('hungry') || lower.includes('craving')) reply = "Cravings are completely normal in this phase. Protein + healthy fats work very well to reduce them.";
-                else if (lower.includes('sleep')) reply = "Sleep quality is crucial right now. Aim for 8-9 hours and avoid screens 1 hour before bed.";
-                else if (lower.includes('stress')) reply = "Stress can disrupt your cycle. Try 5 minutes of deep breathing or a short walk outside.";
-                else if (lower.includes('pain') || lower.includes('cramps')) reply = "Cramps are common in menstrual phase. Heat therapy + magnesium + gentle movement usually helps.";
-                else if (lower.includes('hormone')) reply = "Your hormone levels are shifting. This is normal. Track symptoms and adjust training accordingly.";
+                
+                if (lower.includes('tired') || lower.includes('energy')) {
+                    reply = "You're in luteal phase — energy naturally drops. Reduce training intensity by 20% and prioritize sleep tonight.";
+                } else if (lower.includes('training') || lower.includes('workout')) {
+                    reply = "Perfect timing! Ovulatory phase is ideal for heavy lifts. Focus on compound movements today.";
+                } else if (lower.includes('mood') || lower.includes('anxious')) {
+                    reply = "Hormonal shifts can amplify emotions right now. A 10-minute walk + magnesium often helps significantly.";
+                } else if (lower.includes('hungry') || lower.includes('craving')) {
+                    reply = "Cravings are completely normal in this phase. Protein + healthy fats work very well to reduce them.";
+                } else if (lower.includes('sleep')) {
+                    reply = "Sleep quality is crucial right now. Aim for 8-9 hours and avoid screens 1 hour before bed.";
+                } else if (lower.includes('stress')) {
+                    reply = "Stress can disrupt your cycle. Try 5 minutes of deep breathing or a short walk outside.";
+                } else if (lower.includes('pain') || lower.includes('cramps')) {
+                    reply = "Cramps are common in menstrual phase. Heat therapy + magnesium + gentle movement usually helps.";
+                } else if (lower.includes('hormone')) {
+                    reply = "Your hormone levels are shifting. This is normal. Track symptoms and adjust training accordingly.";
+                } else if (lower.includes('motivation')) {
+                    reply = "You're doing great. Small consistent actions compound over time. Keep showing up.";
+                }
+                
                 addAIMessage('assistant', reply);
             }, 850);
         }
         
+        // EXERCISE DETAIL
         function showExerciseDetail(index) {
             const exercises = [
                 { title: "High-Intensity Strength", duration: "45 min", level: "Intermediate", desc: "Focus on compound movements like squats, deadlifts, and bench press. Great for building strength during ovulatory phase." },
@@ -419,6 +508,7 @@
                 { title: "Core & Stability", duration: "30 min", level: "Intermediate", desc: "Targeted core work and stability training. Excellent for injury prevention." },
                 { title: "HIIT Cardio", duration: "25 min", level: "Advanced", desc: "High-intensity interval training. Great for fat loss and cardiovascular health." }
             ];
+            
             const ex = exercises[index];
             document.getElementById('exercise-content').innerHTML = `
                 <div class="text-4xl mb-4">${index === 0 ? '🏋️' : index === 1 ? '🧘' : index === 2 ? '⚡' : index === 3 ? '🧘‍♀️' : index === 4 ? '💪' : '🔥'}</div>
@@ -429,63 +519,87 @@
             `;
             document.getElementById('exercise-modal').classList.remove('hidden');
         }
-        function hideExerciseModal() { document.getElementById('exercise-modal').classList.add('hidden'); }
-        function startWorkout(title) { alert(`Starting: ${title}\n\nTimer started. Good luck!`); }
         
-        function quickLog(type) {
-            let msg = '';
-            if (type === 'symptom') msg = 'Symptom logged. Thank you for tracking.';
-            else if (type === 'meal') msg = 'Meal logged. Great job staying consistent!';
-            else if (type === 'sleep') msg = 'Sleep logged. Quality sleep is key to recovery.';
-            alert(msg);
+        function hideExerciseModal() {
+            document.getElementById('exercise-modal').classList.add('hidden');
         }
         
-        function showSettings() { document.getElementById('settings-modal').classList.remove('hidden'); }
-        function hideSettings() { document.getElementById('settings-modal').classList.add('hidden'); }
+        function startWorkout(title) {
+            alert(`Starting: ${title}\n\nTimer started. Good luck!`);
+        }
         
+NEXT
+                // AI CHAT
         let aiHistory = [];
+        
         function showAIChat() {
             document.getElementById('ai-modal').classList.remove('hidden');
             const chat = document.getElementById('ai-chat');
             chat.innerHTML = '';
+            
             if (aiHistory.length === 0) {
                 addAIMessage("assistant", "Hey Angel! How are you feeling today? I'm here to help with your cycle, training, recovery, or mood.");
             } else {
                 aiHistory.forEach(msg => addAIMessage(msg.role, msg.content, true));
             }
         }
-        function hideAIChat() { document.getElementById('ai-modal').classList.add('hidden'); }
-        function addAIMessage(role, content, skip = false) {
+        
+        function hideAIChat() {
+            document.getElementById('ai-modal').classList.add('hidden');
+        }
+        
+        function addAIMessage(role, content, skipSave = false) {
             const chat = document.getElementById('ai-chat');
             const div = document.createElement('div');
             div.className = `flex ${role === 'user' ? 'justify-end' : ''}`;
-            div.innerHTML = `<div class="max-w-[80%] px-4 py-3 rounded-3xl text-sm ${role === 'user' ? 'bg-[#00f5ff] text-black' : 'bg-white/10'}">${content}</div>`;
+            div.innerHTML = `
+                <div class="max-w-[80%] px-4 py-3 rounded-3xl text-sm ${role === 'user' ? 'bg-[#00f5ff] text-black' : 'bg-white/10'}">
+                    ${content}
+                </div>
+            `;
             chat.appendChild(div);
             chat.scrollTop = chat.scrollHeight;
-            if (!skip) aiHistory.push({ role, content });
+            
+            if (!skipSave) aiHistory.push({ role, content });
         }
+        
         function sendAI() {
             const input = document.getElementById('ai-input');
             const value = input.value.trim();
             if (!value) return;
+            
             addAIMessage('user', value);
             input.value = '';
             
             setTimeout(() => {
                 let reply = "Got it. How does that feel today?";
                 const lower = value.toLowerCase();
-                if (lower.includes('tired') || lower.includes('energy')) reply = "You're in luteal phase — energy naturally drops. Reduce training intensity by 20% and prioritize sleep tonight.";
-                else if (lower.includes('training') || lower.includes('workout')) reply = "Perfect timing! Ovulatory phase is ideal for heavy lifts. Focus on compound movements today.";
-                else if (lower.includes('mood') || lower.includes('anxious')) reply = "Hormonal shifts can amplify emotions right now. A 10-minute walk + magnesium often helps significantly.";
-                else if (lower.includes('hungry') || lower.includes('craving')) reply = "Cravings are completely normal in this phase. Protein + healthy fats work very well to reduce them.";
-                else if (lower.includes('sleep')) reply = "Sleep quality is crucial right now. Aim for 8-9 hours and avoid screens 1 hour before bed.";
-                else if (lower.includes('stress')) reply = "Stress can disrupt your cycle. Try 5 minutes of deep breathing or a short walk outside.";
-                else if (lower.includes('pain') || lower.includes('cramps')) reply = "Cramps are common in menstrual phase. Heat therapy + magnesium + gentle movement usually helps.";
-                else if (lower.includes('hormone')) reply = "Your hormone levels are shifting. This is normal. Track symptoms and adjust training accordingly.";
+                
+                if (lower.includes('tired') || lower.includes('energy')) {
+                    reply = "You're in luteal phase — energy naturally drops. Reduce training intensity by 20% and prioritize sleep tonight.";
+                } else if (lower.includes('training') || lower.includes('workout')) {
+                    reply = "Perfect timing! Ovulatory phase is ideal for heavy lifts. Focus on compound movements today.";
+                } else if (lower.includes('mood') || lower.includes('anxious')) {
+                    reply = "Hormonal shifts can amplify emotions right now. A 10-minute walk + magnesium often helps significantly.";
+                } else if (lower.includes('hungry') || lower.includes('craving')) {
+                    reply = "Cravings are completely normal in this phase. Protein + healthy fats work very well to reduce them.";
+                } else if (lower.includes('sleep')) {
+                    reply = "Sleep quality is crucial right now. Aim for 8-9 hours and avoid screens 1 hour before bed.";
+                } else if (lower.includes('stress')) {
+                    reply = "Stress can disrupt your cycle. Try 5 minutes of deep breathing or a short walk outside.";
+                } else if (lower.includes('pain') || lower.includes('cramps')) {
+                    reply = "Cramps are common in menstrual phase. Heat therapy + magnesium + gentle movement usually helps.";
+                } else if (lower.includes('hormone')) {
+                    reply = "Your hormone levels are shifting. This is normal. Track symptoms and adjust training accordingly.";
+                } else if (lower.includes('motivation')) {
+                    reply = "You're doing great. Small consistent actions compound over time. Keep showing up.";
+                }
+                
                 addAIMessage('assistant', reply);
             }, 850);
         }
         
+        // EXERCISE DETAIL
         function showExerciseDetail(index) {
             const exercises = [
                 { title: "High-Intensity Strength", duration: "45 min", level: "Intermediate", desc: "Focus on compound movements like squats, deadlifts, and bench press. Great for building strength during ovulatory phase." },
@@ -495,6 +609,7 @@
                 { title: "Core & Stability", duration: "30 min", level: "Intermediate", desc: "Targeted core work and stability training. Excellent for injury prevention." },
                 { title: "HIIT Cardio", duration: "25 min", level: "Advanced", desc: "High-intensity interval training. Great for fat loss and cardiovascular health." }
             ];
+            
             const ex = exercises[index];
             document.getElementById('exercise-content').innerHTML = `
                 <div class="text-4xl mb-4">${index === 0 ? '🏋️' : index === 1 ? '🧘' : index === 2 ? '⚡' : index === 3 ? '🧘‍♀️' : index === 4 ? '💪' : '🔥'}</div>
@@ -505,9 +620,17 @@
             `;
             document.getElementById('exercise-modal').classList.remove('hidden');
         }
-        function hideExerciseModal() { document.getElementById('exercise-modal').classList.add('hidden'); }
-        function startWorkout(title) { alert(`Starting: ${title}\n\nTimer started. Good luck!`); }
         
+        function hideExerciseModal() {
+            document.getElementById('exercise-modal').classList.add('hidden');
+        }
+        
+        function startWorkout(title) {
+            alert(`Starting: ${title}\n\nTimer started. Good luck!`);
+        }
+        
+NEXT
+                // FINAL HELPER FUNCTIONS
         function quickLog(type) {
             let msg = '';
             if (type === 'symptom') msg = 'Symptom logged. Thank you for tracking.';
@@ -516,10 +639,17 @@
             alert(msg);
         }
         
-        function showSettings() { document.getElementById('settings-modal').classList.remove('hidden'); }
-        function hideSettings() { document.getElementById('settings-modal').classList.add('hidden'); }
+        function showSettings() {
+            document.getElementById('settings-modal').classList.remove('hidden');
+        }
         
+        function hideSettings() {
+            document.getElementById('settings-modal').classList.add('hidden');
+        }
+        
+        // INITIALIZE EVERYTHING
         window.onload = initialize;
+        
     </script>
 </body>
 </html>
